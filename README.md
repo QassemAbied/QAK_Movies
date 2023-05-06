@@ -18,3 +18,6 @@ samples, guidance on mobile development, and a full API reference.
 
 # images
 <img src="https://github.com/QassemAbied/QAK_Movies/blob/master/1683381128477_100.PNG" width="200" height="400" />
+
+<img src="https://github.com/QassemAbied/QAK_Movies/blob/master/1683381128477_100.PNG" width="200" height="400" />
+
