@@ -1,4 +1,4 @@
-class VideoEntities{
-  final int id ;
+class VideoEntities {
+  final int id;
   VideoEntities({required this.id});
 }

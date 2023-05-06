@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class EmptyWatchlistText extends StatelessWidget {
-   EmptyWatchlistText({key});
+  EmptyWatchlistText({key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,13 +10,13 @@ class EmptyWatchlistText extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-      '    AppStrings.watchlistIsEmpty',
+          '    AppStrings.watchlistIsEmpty',
           style: textTheme.titleMedium,
         ),
         Padding(
           padding: const EdgeInsets.only(top: 6),
           child: Text(
-           ' AppStrings.watchlistText',
+            ' AppStrings.watchlistText',
             style: textTheme.bodyLarge,
             textAlign: TextAlign.center,
           ),

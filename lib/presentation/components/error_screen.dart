@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ErrorScreen extends StatelessWidget {
@@ -22,15 +21,14 @@ class ErrorScreen extends StatelessWidget {
             child: Image.asset(
               'assets/images/icon.png',
               width: double.infinity,
-              height:50,
+              height: 50,
             ),
           ),
-         // const ErrorText(),
           const SizedBox(height: 15),
           ElevatedButton(
             onPressed: onTryAgainPressed,
             style: ElevatedButton.styleFrom(
-             // backgroundColor: Colors.blue,
+              // backgroundColor: Colors.blue,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
               ),

@@ -1,7 +1,6 @@
-class GenreEntities
-{
+class GenreEntities {
   final String name;
-  final int id ;
+  final int id;
 
-  GenreEntities({required this.name , required this.id});
+  GenreEntities({required this.name, required this.id});
 }

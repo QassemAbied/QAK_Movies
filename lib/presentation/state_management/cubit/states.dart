@@ -1,5 +1,5 @@
-abstract class ChangeStates{}
+abstract class ChangeStates {}
 
-class InitialStateBottom extends ChangeStates{}
+class InitialStateBottom extends ChangeStates {}
 
-class ChangeBottomState extends ChangeStates{}
+class ChangeBottomState extends ChangeStates {}

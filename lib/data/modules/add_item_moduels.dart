@@ -1,16 +1,13 @@
-import 'package:untitled3/domain/use_case/watchlist_use_case/add_watchlist_usecase.dart';
-
 import '../../domain/entities/add_item_request_entities.dart';
 
-class AddItemRequestModules extends AddItemRequestEntities{
-  AddItemRequestModules({required int? id, required bool? isWatchList,
-    required String? movie}) : super(id: id, isWatchList: isWatchList, movie: movie);
+class AddItemRequestModules extends AddItemRequestEntities {
+  AddItemRequestModules(
+      {required int? id, required bool? isWatchList, required String? movie})
+      : super(id: id, isWatchList: isWatchList, movie: movie);
 
-  factory AddItemRequestModules.fromJson(Map<String , dynamic> json)=>
+  factory AddItemRequestModules.fromJson(Map<String, dynamic> json) =>
       AddItemRequestModules(
           id: json['id'],
-          isWatchList: json['isWatchList']!=null ?  json['isWatchList']:  true,
-          movie: json['movie']!=null ?  json['movie']:  'movie'
-      );
-
+          isWatchList: json['isWatchList'] != null ? json['isWatchList'] : true,
+          movie: json['movie'] != null ? json['movie'] : 'movie');
 }

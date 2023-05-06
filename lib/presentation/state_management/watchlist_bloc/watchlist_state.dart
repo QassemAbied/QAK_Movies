@@ -1,9 +1,4 @@
-
-
 import 'package:equatable/equatable.dart';
-import 'package:untitled3/domain/entities/add_watchlist_entities.dart';
-import 'package:untitled3/domain/use_case/watchlist_use_case/add_watchlist_usecase.dart';
-
 import '../../../domain/entities/add_item_request_entities.dart';
 import '../../../domain/entities/movie_entities.dart';
 
@@ -46,9 +41,9 @@ class WatchlistState extends Equatable {
 
   @override
   List<Object?> get props => [
-    id,
-    items,
-    status,
-    message,
-  ];
+        id,
+        items,
+        status,
+        message,
+      ];
 }
