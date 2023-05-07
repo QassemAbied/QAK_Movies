@@ -48,7 +48,7 @@ A new Flutter project.
 
 
 # images
-<img src="https://github.com/QassemAbied/QAK_Movies/blob/master/screenshot.PNG/1683381424307_100.PNG" width="260" height="370" />  <img src="https://github.com/QassemAbied/QAK_Movies/blob/master/screenshot.PNG/1683381433977_100.PNG" width="260" height="370" /><img src="https://github.com/QassemAbied/QAK_Movies/blob/master/screenshot.PNG/1683381508730_100.PNG" width="260" height="370" />  <img src="https://github.com/QassemAbied/QAK_Movies/blob/master/screenshot.PNG/1683381516804_100.PNG" width="260" height="370" />
+<img src="https://github.com/QassemAbied/QAK_Movies/blob/master/screenshot.PNG/1683381424307_100.PNG" width="260" height="340" />  <img src="https://github.com/QassemAbied/QAK_Movies/blob/master/screenshot.PNG/1683381433977_100.PNG" width="260" height="340" /><img src="https://github.com/QassemAbied/QAK_Movies/blob/master/screenshot.PNG/1683381508730_100.PNG" width="260" height="340" />  <img src="https://github.com/QassemAbied/QAK_Movies/blob/master/screenshot.PNG/1683381516804_100.PNG" width="260" height="340" />
 
 
 
