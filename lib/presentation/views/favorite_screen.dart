@@ -6,6 +6,7 @@ import 'package:untitled3/presentation/state_management/favorite_bloc/favorit_bl
 import 'package:untitled3/presentation/state_management/favorite_bloc/favorite_event.dart';
 import 'package:untitled3/presentation/state_management/favorite_bloc/favorite_state.dart';
 import '../../core/api.dart';
+import '../../core/di.dart';
 import '../../data/data_sources/favorite_remote_data_source.dart';
 import '../../domain/entities/movie_entities.dart';
 import 'details_screen.dart';
@@ -42,20 +43,23 @@ class FavoriteScreen extends StatelessWidget {
           ],
         ),
       ),
-      body: BlocBuilder<FavoritesBloc, FavoritesState>(
-        builder: (context, state) {
-          return ConditionalBuilder(
-            condition: state.items.isNotEmpty,
-            builder: (context) {
-              return BuildfavoritesItems(
-                movie: state.items,
-              );
-            },
-            fallback: (context) {
-              return Center(child: CircularProgressIndicator());
-            },
-          );
-        },
+      body: BlocProvider(
+        create: (context) => Sl<FavoritesBloc>()..add(GetFavoritesItemsEvent()),
+        child: BlocBuilder<FavoritesBloc, FavoritesState>(
+          builder: (context, state) {
+            return ConditionalBuilder(
+              condition: state.items.isNotEmpty,
+              builder: (context) {
+                return BuildfavoritesItems(
+                  movie: state.items,
+                );
+              },
+              fallback: (context) {
+                return Center(child: CircularProgressIndicator());
+              },
+            );
+          },
+        ),
       ),
     );
   }
@@ -90,8 +94,8 @@ class _BuildfavoritesItemsState extends State<BuildfavoritesItems> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => DetailsScreen(
-                                  id: item.id,
-                                )));
+                              id: item.id,
+                            )));
                   },
                   child: Card(
                     color: Colors.white38,
@@ -182,9 +186,9 @@ class _BuildfavoritesItemsState extends State<BuildfavoritesItems> {
                                               Icons.star,
                                               size: 20,
                                               color:
-                                                  item.VoteAverage / 2 < index
-                                                      ? Colors.black45
-                                                      : Colors.amber,
+                                              item.VoteAverage / 2 < index
+                                                  ? Colors.black45
+                                                  : Colors.amber,
                                             );
                                           }),
                                         ),
@@ -201,8 +205,8 @@ class _BuildfavoritesItemsState extends State<BuildfavoritesItems> {
                                       child: ElevatedButton(
                                         style: ButtonStyle(
                                           backgroundColor:
-                                              MaterialStateProperty.all(
-                                                  Colors.black),
+                                          MaterialStateProperty.all(
+                                              Colors.black),
                                         ),
                                         onPressed: () {
                                           BlocProvider.of<FavoritesBloc>(
@@ -210,11 +214,11 @@ class _BuildfavoritesItemsState extends State<BuildfavoritesItems> {
                                             ..add(RemoveFavoritesItemEvent(
                                               media: MovieEntities(
                                                   BackdropPath:
-                                                      item.BackdropPath,
+                                                  item.BackdropPath,
                                                   PosterPath: item.PosterPath,
                                                   id: item.id,
                                                   originalTitle:
-                                                      item.originalTitle,
+                                                  item.originalTitle,
                                                   Overview: item.Overview,
                                                   Popularity: item.Popularity,
                                                   ReleaseDate: item.ReleaseDate,
@@ -227,6 +231,9 @@ class _BuildfavoritesItemsState extends State<BuildfavoritesItems> {
                                             ));
                                           setState(() {
                                             widget.movie.removeAt(index);
+                                          });
+                                          setState(() {
+
                                           });
                                         },
                                         child: Text(

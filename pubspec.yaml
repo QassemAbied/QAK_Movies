@@ -37,7 +37,6 @@ dependencies:
 
   json_serializable:
   json_annotation:
-
   analyzer:
   dio:
   bloc: ^8.1.0
