@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:untitled3/data/modules/movie_modules.dart';
-import '../../core/api.dart';
+import '../../core/api_constance.dart';
 import '../../core/error/error_handle.dart';
 import '../../core/error/servier_exception.dart';
 import '../../domain/entities/movie_entities.dart';
@@ -16,7 +16,7 @@ class FavoriteRemoteDataSourceImpl implements FavoriteRemoteDataSource {
   Map<int, bool> isFav = {};
   @override
   Future<List<MovieModules>> getFavoriteMovie() async {
-    final response = await Dio().get(ConstanceApi.Favorites);
+    final response = await Dio().get(ApiConstance.Favorites);
     if (response.statusCode == 200) {
       final fav = List<MovieModules>.from((response.data['results'] as List)
           .map((e) => MovieModules.fromJson(e))
@@ -40,7 +40,7 @@ class FavoriteRemoteDataSourceImpl implements FavoriteRemoteDataSource {
   Future<AddItemRequestModules> addFavoriteItem(MovieEntities media) async {
     final response = await Dio().postUri(
       Uri.parse(
-        ConstanceApi.AddFavorites,
+        ApiConstance.AddFavorites,
       ),
       data: {
         'media_type': 'movie',
@@ -61,7 +61,7 @@ class FavoriteRemoteDataSourceImpl implements FavoriteRemoteDataSource {
   Future<AddItemRequestModules> RemoveFavoriteItem(MovieEntities media) async {
     final response = await Dio().postUri(
       Uri.parse(
-        ConstanceApi.RemoveFavorites,
+        ApiConstance.RemoveFavorites,
       ),
       data: {
         'media_type': 'movie',

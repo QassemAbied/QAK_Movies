@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:untitled3/core/api.dart';
+import 'package:untitled3/core/api_constance.dart';
 import 'package:untitled3/domain/entities/movie_entities.dart';
 import 'package:untitled3/presentation/views/details_screen.dart';
 
@@ -84,7 +84,7 @@ class _BuildListViewScreenState extends State<BuildListViewScreen> {
                               children: [
                                 CachedNetworkImage(
                                   imageUrl:
-                                      ConstanceApi.imagePath(item.PosterPath),
+                                      ApiConstance.imagePath(item.PosterPath),
                                   height: 150,
                                   width: 150,
                                   fit: BoxFit.fill,

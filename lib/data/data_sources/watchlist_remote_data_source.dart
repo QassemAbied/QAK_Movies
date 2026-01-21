@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:untitled3/core/api.dart';
+import 'package:untitled3/core/api_constance.dart';
 import 'package:untitled3/data/modules/add_item_moduels.dart';
 import 'package:untitled3/data/modules/movie_modules.dart';
 import '../../core/error/error_handle.dart';
@@ -15,7 +15,7 @@ abstract class WatchlistLocalDataSource {
 class WatchlistLocalDataSourceImpl extends WatchlistLocalDataSource {
   @override
   Future<List<MovieModules>> getWatchListItems() async {
-    final response = await Dio().get(ConstanceApi.WatchList);
+    final response = await Dio().get(ApiConstance.WatchList);
     if (response.statusCode == 200) {
       return List<MovieModules>.from((response.data['results'] as List)
           .map((e) => MovieModules.fromJson(e))
@@ -29,7 +29,7 @@ class WatchlistLocalDataSourceImpl extends WatchlistLocalDataSource {
   Future<AddItemRequestModules> addWatchListItem(MovieEntities media) async {
     final response = await Dio().postUri(
       Uri.parse(
-        ConstanceApi.AddWatchLisrt,
+        ApiConstance.AddWatchLisrt,
       ),
       data: {
         'media_type': 'movie',
@@ -50,7 +50,7 @@ class WatchlistLocalDataSourceImpl extends WatchlistLocalDataSource {
   Future<AddItemRequestModules> removeWatchListItem(MovieEntities media) async {
     final response = await Dio().postUri(
       Uri.parse(
-        ConstanceApi.AddWatchLisrt,
+        ApiConstance.AddWatchLisrt,
       ),
       data: {
         'media_type': 'movie',

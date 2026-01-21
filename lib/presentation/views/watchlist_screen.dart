@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../core/api.dart';
+import '../../core/api_constance.dart';
 import '../../core/di.dart';
 import '../../domain/entities/movie_entities.dart';
 import '../state_management/favorite_bloc/favorit_bloc.dart';
@@ -112,7 +112,7 @@ class _BuildWatchListItemsState extends State<BuildWatchListItems> {
                         children: [
                           CachedNetworkImage(
                             imageUrl:
-                            ConstanceApi.imagePath(item.PosterPath),
+                            ApiConstance.imagePath(item.PosterPath),
                             height: 150,
                             width: 150,
                             fit: BoxFit.fill,

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:untitled3/data/modules/request_token_moduels.dart';
-import '../../core/api.dart';
+import '../../core/api_constance.dart';
 import '../../core/error/error_handle.dart';
 import '../../core/error/servier_exception.dart';
 import '../../domain/entities/login_entities.dart';
@@ -16,7 +16,7 @@ class AuthenticationRemoteDataSourceImpl
     implements AuthenticationRemoteDataSource {
   @override
   Future<RequestTokenModules> getRequestToken() async {
-    final response = await Dio().get(ConstanceApi.RequestToken);
+    final response = await Dio().get(ApiConstance.RequestToken);
 
     if (response.statusCode == 200) {
       return RequestTokenModules.fromJson(response.data);
@@ -30,7 +30,7 @@ class AuthenticationRemoteDataSourceImpl
   Future<RequestTokenModules> getLoginValidate(LoginEntities parameter) async {
     final response = await Dio().postUri(
       Uri.parse(
-        ConstanceApi.LoginValidate,
+        ApiConstance.LoginValidate,
       ),
       data: {
         'username': parameter.username,
@@ -54,7 +54,7 @@ class AuthenticationRemoteDataSourceImpl
   @override
   Future<SessionModules> getCreateSession(String parameter) async {
     final response = await Dio().post(
-      ConstanceApi.session_id,
+      ApiConstance.session_id,
       data: {
         'request_token': parameter,
       },

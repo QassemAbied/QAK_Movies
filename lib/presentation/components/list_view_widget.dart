@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled3/domain/entities/movie_entities.dart';
 import 'package:untitled3/presentation/views/details_screen.dart';
-import '../../core/api.dart';
+import '../../core/api_constance.dart';
 
 class BuildListView extends StatelessWidget {
   const BuildListView({Key? key, required this.movielist}) : super(key: key);
@@ -33,7 +33,7 @@ class BuildListView extends StatelessWidget {
                   Column(
                     children: [
                       CachedNetworkImage(
-                        imageUrl: ConstanceApi.imagePath(item.BackdropPath),
+                        imageUrl: ApiConstance.imagePath(item.BackdropPath),
                         fit: BoxFit.fill,
                         height: 200,
                         imageBuilder: (context, imageProvider) {

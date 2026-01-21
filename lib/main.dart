@@ -10,6 +10,7 @@ import 'package:untitled3/presentation/state_management/movie_bloc/movie_event.d
 import 'package:untitled3/presentation/state_management/movie_details_bloc/details_bloc.dart';
 import 'package:untitled3/presentation/state_management/watchlist_bloc/watchlist_bloc.dart';
 import 'package:untitled3/presentation/state_management/watchlist_bloc/watchlist_event.dart';
+import 'package:untitled3/presentation/views/first_screen.dart';
 import 'package:untitled3/presentation/views/splash_screen.dart';
 import 'core/di.dart';
 
@@ -60,7 +61,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-      home: SplashScreen(),
+      home: FirstView(),
     );
   }
 }

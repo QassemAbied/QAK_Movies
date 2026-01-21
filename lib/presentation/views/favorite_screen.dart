@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:untitled3/presentation/state_management/favorite_bloc/favorit_bloc.dart';
 import 'package:untitled3/presentation/state_management/favorite_bloc/favorite_event.dart';
 import 'package:untitled3/presentation/state_management/favorite_bloc/favorite_state.dart';
-import '../../core/api.dart';
+import '../../core/api_constance.dart';
 import '../../core/di.dart';
 import '../../data/data_sources/favorite_remote_data_source.dart';
 import '../../domain/entities/movie_entities.dart';
@@ -105,7 +105,7 @@ class _BuildfavoritesItemsState extends State<BuildfavoritesItems> {
                       child: Row(
                         children: [
                           CachedNetworkImage(
-                            imageUrl: ConstanceApi.imagePath(item.PosterPath),
+                            imageUrl: ApiConstance.imagePath(item.PosterPath),
                             height: 150,
                             width: 150,
                             fit: BoxFit.fill,

@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:untitled3/core/api.dart';
+import 'package:untitled3/core/api_constance.dart';
 import 'package:untitled3/presentation/state_management/movie_bloc/movie_bloc.dart';
 import 'package:untitled3/presentation/state_management/movie_bloc/movie_state.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -31,7 +31,7 @@ class PopularWidget extends StatelessWidget {
                   Column(
                     children: [
                       CachedNetworkImage(
-                        imageUrl: ConstanceApi.imagePath(item.BackdropPath),
+                        imageUrl: ApiConstance.imagePath(item.BackdropPath),
                         fit: BoxFit.fill,
                         width: double.infinity,
                         height: 300,

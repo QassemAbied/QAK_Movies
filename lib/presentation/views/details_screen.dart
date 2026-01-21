@@ -3,7 +3,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:untitled3/core/api.dart';
+import 'package:untitled3/core/api_constance.dart';
 import 'package:untitled3/domain/entities/image_movie_entities.dart';
 import 'package:untitled3/domain/entities/movie_entities.dart';
 import 'package:untitled3/presentation/state_management/favorite_bloc/favorit_bloc.dart';
@@ -169,7 +169,7 @@ class _BuildChedImageState extends State<BuildChedImage> {
           alignment: Alignment.center,
           children: [
             CachedNetworkImage(
-              imageUrl: ConstanceApi.imagePath(
+              imageUrl: ApiConstance.imagePath(
                   '${widget.item != null ? widget.item?.BackdropPath : ''}'),
               height: MediaQuery.of(context).size.height / 2,
               fit: BoxFit.fill,
@@ -473,7 +473,7 @@ Widget BuildImageMovie(List<ImageMovieEntities> moviees) {
       itemBuilder: (context, index) {
         final itemes = moviees[index];
         return CachedNetworkImage(
-          imageUrl: ConstanceApi.imagePath(itemes.images),
+          imageUrl: ApiConstance.imagePath(itemes.images),
           height: 200,
           width: 150,
           fit: BoxFit.fill,
@@ -520,7 +520,7 @@ Widget BuildCastMovie(List<CastEntities> cast) {
         return Column(
           children: [
             CachedNetworkImage(
-              imageUrl: ConstanceApi.imagePath(
+              imageUrl: ApiConstance.imagePath(
                   '${item != null ? item.profile_path : ''}'),
               height: 110,
               width: 130,
@@ -618,7 +618,7 @@ Widget SimilarMovie(List<MovieEntities> movie, context) {
                     alignment: Alignment.bottomCenter,
                     children: [
                       CachedNetworkImage(
-                        imageUrl: ConstanceApi.imagePath(item.BackdropPath),
+                        imageUrl: ApiConstance.imagePath(item.BackdropPath),
                         height: 150,
                         width: 150,
                         fit: BoxFit.fill,

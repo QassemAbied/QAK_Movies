@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:untitled3/core/api.dart';
+import 'package:untitled3/core/api_constance.dart';
 import 'package:untitled3/data/data_sources/base_remote_data_sources.dart';
 import 'package:untitled3/data/modules/cast_movie_modules.dart';
 import 'package:untitled3/data/modules/check_account_states_modules.dart';
@@ -17,7 +17,7 @@ import '../../core/error/servier_exception.dart';
 class RemoteDataSourceImpl implements RemoteDataSources {
   @override
   Future<List<MovieModules>> getPopularMovies() async {
-    final response = await Dio().get(ConstanceApi.PlayingNow);
+    final response = await Dio().get(ApiConstance.PlayingNow);
     if (response.statusCode == 200) {
       return List<MovieModules>.from((response.data['results'] as List)
           .map((e) => MovieModules.fromJson(e))
@@ -29,7 +29,7 @@ class RemoteDataSourceImpl implements RemoteDataSources {
 
   @override
   Future<List<GenreModules>> getGenreMovies() async {
-    final response = await Dio().get(ConstanceApi.genreApi);
+    final response = await Dio().get(ApiConstance.genreApi);
     if (response.statusCode == 200) {
       return List<GenreModules>.from((response.data['genres'] as List)
           .map((e) => GenreModules.fromJson(e))
@@ -41,7 +41,7 @@ class RemoteDataSourceImpl implements RemoteDataSources {
 
   @override
   Future<List<MovieModules>> getMoviesByGenres(GenreId parameter) async {
-    final response = await Dio().get(ConstanceApi.movieByGenre(parameter.id));
+    final response = await Dio().get(ApiConstance.movieByGenre(parameter.id));
     if (response.statusCode == 200) {
       return List<MovieModules>.from((response.data['results'] as List)
           .map((e) => MovieModules.fromJson(e))
@@ -53,7 +53,7 @@ class RemoteDataSourceImpl implements RemoteDataSources {
 
   @override
   Future<List<MovieModules>> getTopRatedMovies() async {
-    final response = await Dio().get(ConstanceApi.TopRated);
+    final response = await Dio().get(ApiConstance.TopRated);
     if (response.statusCode == 200) {
       return List<MovieModules>.from((response.data['results'] as List)
           .map((e) => MovieModules.fromJson(e))
@@ -65,7 +65,7 @@ class RemoteDataSourceImpl implements RemoteDataSources {
 
   @override
   Future<List<MovieModules>> getUpComingMovies() async {
-    final response = await Dio().get(ConstanceApi.UpComing);
+    final response = await Dio().get(ApiConstance.UpComing);
     if (response.statusCode == 200) {
       return List<MovieModules>.from((response.data['results'] as List)
           .map((e) => MovieModules.fromJson(e))
@@ -77,7 +77,7 @@ class RemoteDataSourceImpl implements RemoteDataSources {
 
   @override
   Future<List<MovieModules>> getTrendMovies() async {
-    final response = await Dio().get(ConstanceApi.Trend);
+    final response = await Dio().get(ApiConstance.Trend);
     if (response.statusCode == 200) {
       return List<MovieModules>.from((response.data['results'] as List)
           .map((e) => MovieModules.fromJson(e))
@@ -90,7 +90,7 @@ class RemoteDataSourceImpl implements RemoteDataSources {
   Map<int, bool> isTrue = {};
   @override
   Future<MovieModules> getDetailsMovies(int parameter) async {
-    final response = await Dio().get(ConstanceApi.DetailsMovie(parameter));
+    final response = await Dio().get(ApiConstance.DetailsMovie(parameter));
     if (response.statusCode == 200) {
       MovieModules movieModules = MovieModules.fromJson(response.data);
 
@@ -104,7 +104,7 @@ class RemoteDataSourceImpl implements RemoteDataSources {
 
   @override
   Future<List<ImageMovieModule>> getImageMovies(ImageMovieId parameter) async {
-    final response = await Dio().get(ConstanceApi.ImageForMovie(parameter.id));
+    final response = await Dio().get(ApiConstance.ImageForMovie(parameter.id));
     if (response.statusCode == 200) {
       return List<ImageMovieModule>.from((response.data['backdrops'] as List)
           .map((e) => ImageMovieModule.fromJson(e))
@@ -116,7 +116,7 @@ class RemoteDataSourceImpl implements RemoteDataSources {
 
   @override
   Future<List<CastMovieModule>> getCastMovies(CastMovieId parameter) async {
-    final response = await Dio().get(ConstanceApi.CastForMovie(parameter.id));
+    final response = await Dio().get(ApiConstance.CastForMovie(parameter.id));
     if (response.statusCode == 200) {
       return List<CastMovieModule>.from((response.data['cast'] as List)
           .map((e) => CastMovieModule.fromJson(e))
@@ -128,7 +128,7 @@ class RemoteDataSourceImpl implements RemoteDataSources {
 
   @override
   Future<List<MovieModules>> getSimilarMovies(SimilarId parameter) async {
-    final response = await Dio().get(ConstanceApi.SimilarMovie(parameter.id));
+    final response = await Dio().get(ApiConstance.SimilarMovie(parameter.id));
     if (response.statusCode == 200) {
       return List<MovieModules>.from((response.data['results'] as List)
           .map((e) => MovieModules.fromJson(e))
@@ -140,7 +140,7 @@ class RemoteDataSourceImpl implements RemoteDataSources {
 
   @override
   Future<List<MovieModules>> getSearchMovies(SearchValue parameter) async {
-    final response = await Dio().get(ConstanceApi.SearchMovie(parameter.value));
+    final response = await Dio().get(ApiConstance.SearchMovie(parameter.value));
     if (response.statusCode == 200) {
       return List<MovieModules>.from((response.data['results'] as List)
           .map((e) => MovieModules.fromJson(e))
@@ -152,7 +152,7 @@ class RemoteDataSourceImpl implements RemoteDataSources {
 
   @override
   Future<CheckAccountStatesModules> getCheckAccountStates(int parameter) async {
-    final response = await Dio().get(ConstanceApi.CheckAccount(parameter));
+    final response = await Dio().get(ApiConstance.CheckAccount(parameter));
     if (response.statusCode == 200) {
       return CheckAccountStatesModules.fromJson(response.data);
     } else {
@@ -164,7 +164,7 @@ class RemoteDataSourceImpl implements RemoteDataSources {
   Future<String> getVideoMovies(
     int parameter,
   ) async {
-    final response = await Dio().get(ConstanceApi.VideoMovie(parameter));
+    final response = await Dio().get(ApiConstance.VideoMovie(parameter));
     if (response.statusCode == 200) {
       final youtubeId = response.data['results'][0]['key'];
       return youtubeId;

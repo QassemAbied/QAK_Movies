@@ -3,7 +3,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../core/api.dart';
+import '../../core/api_constance.dart';
 import '../../domain/entities/movie_entities.dart';
 import '../views/details_screen.dart';
 
@@ -42,7 +42,7 @@ class BuildSearchItems extends StatelessWidget {
                             child: Row(
                               children: [
                                 CachedNetworkImage(
-                                  imageUrl: ConstanceApi.imagePath(item.PosterPath),
+                                  imageUrl: ApiConstance.imagePath(item.PosterPath),
                                   height: 150,
                                   width: 150,
                                   fit: BoxFit.fill,
