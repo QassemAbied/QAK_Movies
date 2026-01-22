@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-import 'package:untitled3/core/api_constance.dart';
+import 'package:untitled3/core/network/api_constance.dart';
 
 class DioFactory {
   DioFactory._();
