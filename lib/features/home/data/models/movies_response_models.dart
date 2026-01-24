@@ -5,7 +5,9 @@ part 'movies_response_models.g.dart';
 class MoviesResponse {
   final int? page;
   final List<MovieModel>? results;
+  @JsonKey(name: 'total_pages')
   final int? totalPages;
+  @JsonKey(name: 'total_results')
   final int? totalResults;
 
   MoviesResponse({this.page, this.results, this.totalPages, this.totalResults});

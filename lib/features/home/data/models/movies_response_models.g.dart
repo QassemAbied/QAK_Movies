@@ -12,16 +12,16 @@ MoviesResponse _$MoviesResponseFromJson(Map<String, dynamic> json) =>
       results: (json['results'] as List<dynamic>?)
           ?.map((e) => MovieModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      totalPages: (json['totalPages'] as num?)?.toInt(),
-      totalResults: (json['totalResults'] as num?)?.toInt(),
+      totalPages: (json['total_pages'] as num?)?.toInt(),
+      totalResults: (json['total_results'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$MoviesResponseToJson(MoviesResponse instance) =>
     <String, dynamic>{
       'page': instance.page,
       'results': instance.results,
-      'totalPages': instance.totalPages,
-      'totalResults': instance.totalResults,
+      'total_pages': instance.totalPages,
+      'total_results': instance.totalResults,
     };
 
 MovieModel _$MovieModelFromJson(Map<String, dynamic> json) => MovieModel(
