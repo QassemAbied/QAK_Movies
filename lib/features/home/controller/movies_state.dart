@@ -1,4 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:untitled3/features/home/data/models/movies_genres_models.dart';
+import '../../../core/network/api_error_model.dart';
 import '../data/models/movies_response_models.dart';
 
 
@@ -13,6 +15,10 @@ class HomeState with _$HomeState {
     required List<MovieModel> popular,
     required List<MovieModel> topRated,
     required List<MovieModel> upcoming,
+
   }) = Success;
   const factory HomeState.error({required String error}) = Error;
+
 }
+
+

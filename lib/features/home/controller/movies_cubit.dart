@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:untitled3/features/home/data/models/movies_category.dart';
 import 'package:untitled3/features/home/data/repos/movies_repos.dart';
-
 import '../../../core/network/api_result.dart';
 import 'movies_state.dart' hide Success;
 
@@ -75,4 +74,7 @@ class HomeCubit extends Cubit<HomeState> {
       ),
     );
   }
+
 }
+
+
