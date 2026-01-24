@@ -1,3 +1,5 @@
+import 'package:untitled3/features/home/data/models/movies_genres_models.dart';
+
 import '../../../../core/network/api_error_handler.dart';
 import '../../../../core/network/api_result.dart';
 import '../../../../core/network/api_services.dart';
@@ -25,9 +27,7 @@ class MoviesRepositoryImpl implements MoviesRepository {
 
       return ApiResult.success(response);
     } catch (error) {
-      return ApiResult.failure(
-        ApiErrorHandler.handle(error) ,
-      );
+      return ApiResult.failure(ApiErrorHandler.handle(error));
     }
   }
 
@@ -38,28 +38,44 @@ class MoviesRepositoryImpl implements MoviesRepository {
   }) {
     switch (category) {
       case MovieCategory.popular:
-        return apiServices.getPopularMovies(
-          page: page,
-          language: language,
-        );
+        return apiServices.getPopularMovies(page: page, language: language);
 
       case MovieCategory.nowPlaying:
-        return apiServices.getPlayingNowMovies(
-          page: page,
-          language: language,
-        );
+        return apiServices.getPlayingNowMovies(page: page, language: language);
 
       case MovieCategory.topRated:
-        return apiServices.getTopRatedMovies(
-          page: page,
-          language: language,
-        );
+        return apiServices.getTopRatedMovies(page: page, language: language);
 
       case MovieCategory.upcoming:
-        return apiServices.getUpComingMovies(
-          page: page,
+        return apiServices.getUpComingMovies(page: page, language: language);
+    }
+  }
+
+  @override
+  Future<ApiResult<MoviesResponse>> getMoviesByGenre({
+    required int genreId,
+    required String language,
+  }) async {
+    try {
+      final response = await apiServices.getMovieByGenre(
           language: language,
-        );
+        genreId: genreId,
+      );
+      return ApiResult.success(response);
+    } catch (error) {
+      return ApiResult.failure(ApiErrorHandler.handle(error));
+    }
+  }
+
+  @override
+  Future<ApiResult<GenresMoviesModels>> getGenreList({ required String language})async {
+    try {
+      final response = await apiServices.getGenresMovies(
+        language: language,
+      );
+      return ApiResult.success(response);
+    } catch (error) {
+      return ApiResult.failure(ApiErrorHandler.handle(error));
     }
   }
 }
