@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../helpers/extension.dart';
+
 class PartialStar extends StatelessWidget {
   final double fillPercent; // من 0.0 → 1.0
   final double size;
@@ -26,7 +28,7 @@ class PartialStar extends StatelessWidget {
             child: Icon(
               Icons.star,
               size: size,
-              color: Colors.amber,
+              color: context.colors.tertiary,
             ),
           ),
         ),
@@ -54,7 +56,7 @@ class RatingStars extends StatelessWidget {
         if (starValue >= 1) {
           return Icon(
             Icons.star,
-            color: Colors.amber,
+            color: context.colors.tertiary,
             size: size,
           );
         } else if (starValue > 0) {
