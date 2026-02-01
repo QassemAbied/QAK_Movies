@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:untitled3/core/helpers/extension.dart';
+import 'package:untitled3/core/routing/routers.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../home/data/models/movies_response_models.dart';
 import 'all_movies_item.dart';
@@ -24,17 +26,22 @@ class AllMoviesWidget extends StatelessWidget {
         controller: _scrollController,
         itemCount: movieModel.length + (hasMore ? 1 : 0),
         itemBuilder: (context, index) {
-
-
           if (index == movieModel.length) {
             return const AllMoviesShimmerItem();
           }
-          final double rating =
-              (movieModel[index].voteAverage?.ceil() ?? 0) / 2;
-          return AllMoviesItem(
-            movieModel: movieModel,
-            rating: rating,
-            index: index,
+          final double rating = (movieModel[index].voteAverage?.ceil() ?? 0) / 2;
+          return GestureDetector(
+            onTap: () {
+              context.pushNamed(
+                Routes.detailsMoviesScreen,
+                arguments: movieModel[index].id ?? 0,
+              );
+            },
+            child: AllMoviesItem(
+              movieModel: movieModel,
+              rating: rating,
+              index: index,
+            ),
           );
         },
         separatorBuilder: (context, index) {

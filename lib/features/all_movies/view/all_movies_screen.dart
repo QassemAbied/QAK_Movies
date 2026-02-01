@@ -3,17 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:untitled3/core/common_widgets/rating_stars_widget.dart';
 import 'package:untitled3/core/helpers/spacing.dart';
+import 'package:untitled3/core/theming/theme_cubit/app_theme_cubit.dart';
 import 'package:untitled3/features/all_movies/controller/all_movies_cubit.dart';
 import 'package:untitled3/features/all_movies/controller/all_movies_state.dart';
 import 'package:untitled3/features/all_movies/data/repos/all_movies_repos.dart';
 import 'package:untitled3/features/all_movies/view/widgets/all_movies_list_view.dart';
 import 'package:untitled3/features/all_movies/view/widgets/all_movies_shimmer.dart';
 import 'package:untitled3/features/home/data/models/movies_category.dart';
+import 'package:untitled3/generated/l10n.dart';
 import '../../../core/di.dart';
-import '../../../core/network/api_constance.dart';
-import '../../../core/thiming/app_colors.dart';
-import '../../../core/thiming/app_text_style.dart';
-import '../../home/data/models/movies_response_models.dart';
+import '../../../core/helpers/extension.dart';
+import '../../../core/theming/app_text_style.dart';
+
 
 class AllMoviesScreen extends StatefulWidget {
   final MovieCategory category;
@@ -35,7 +36,7 @@ class _AllMoviesScreenState extends State<AllMoviesScreen> {
     _cubit = AllMoviesCubit(
       allMoviesRepository: Sl<AllMoviesRepository>(),
       category: widget.category,
-      language: 'en-US',
+      language: AppThemeCubit.get(context).currentLanguage.code,
     )..loadFirstPage();
 
 
@@ -49,7 +50,7 @@ class _AllMoviesScreenState extends State<AllMoviesScreen> {
     final max = _scrollController.position.maxScrollExtent;
     final current = _scrollController.position.pixels;
 
-    final threshold = max - 300; // مسافة أمان
+    final threshold = max - 300;
 
     if (current >= threshold) {
       _cubit.loadMore();
@@ -69,18 +70,18 @@ class _AllMoviesScreenState extends State<AllMoviesScreen> {
       value: _cubit,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: AppColors.bgDeepNavy,
+          backgroundColor:context.colors.surfaceContainerHighest,
           title: Text(
             switch (widget.category) {
-              MovieCategory.popular    => 'Popular Movies',
-              MovieCategory.nowPlaying => 'Now Playing',
-              MovieCategory.topRated   => 'Top Rated',
-              MovieCategory.upcoming   => 'Upcoming',
+              MovieCategory.popular    => S.of(context).title3,
+              MovieCategory.nowPlaying => S.of(context).title4,
+              MovieCategory.topRated   => S.of(context).title1,
+              MovieCategory.upcoming   => S.of(context).title2,
             },
             style: AppTextStyles.bold(
                 context,
                 size: 25,
-                color: AppColors.textPrimary
+                color: context.colors.onSurface
             ),
           ),
         ),
@@ -90,7 +91,7 @@ class _AllMoviesScreenState extends State<AllMoviesScreen> {
           builder: (context, state) {
             return state.maybeWhen(
               loading: () {
-                return AllMoviesShimmerList();
+                return const AllMoviesShimmerList();
               },
               success: (movieModel, hasMore) {
                 return AllMoviesWidget(
@@ -103,7 +104,7 @@ class _AllMoviesScreenState extends State<AllMoviesScreen> {
                 return Center(child: Text(error.message ?? ''));
               },
               orElse: () {
-                return SizedBox();
+                return const SizedBox();
               },
             );
           },
