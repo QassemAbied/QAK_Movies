@@ -11,7 +11,7 @@ class AllMoviesCubit extends Cubit<AllMoviesState> {
   final MovieCategory category;
   final String language;
   AllMoviesCubit({required this.allMoviesRepository,
-      required this.category, required this.language}) : super(AllMoviesState.initial());
+      required this.category, required this.language}) : super(const AllMoviesState.initial());
   int _page = 1;
   bool _isFetching = false;
   bool _hasMore = true;
@@ -27,10 +27,10 @@ class AllMoviesCubit extends Cubit<AllMoviesState> {
 
   Future<void> loadMore() async {
     if (_isFetching || !_hasMore) {
-      print('SKIP LOAD MORE | fetching=$_isFetching hasMore=$_hasMore');
+     // print('SKIP LOAD MORE | fetching=$_isFetching hasMore=$_hasMore');
       return;
     }
-    print('LOAD MORE PAGE $_page');
+    //print('LOAD MORE PAGE $_page');
     await loadAllMovies();
   }
   Future<void> loadAllMovies() async{
@@ -51,12 +51,9 @@ class AllMoviesCubit extends Cubit<AllMoviesState> {
           _movies.addAll(newMovies);
           _hasMore = _page < (moviesResponse.totalPages ?? 0);
           _page++;
-          print('PAGE BEFORE => $_page');
-         // _page++;
-          print('PAGE AFTER => $_page');
-          print('TOTAL MOVIES => ${_movies.length}');
-          print('HAS MORE => $_hasMore');
-          emit(AllMoviesState.success( movies: List.from(_movies), hasMore: _hasMore));
+
+          emit(AllMoviesState.success(
+              movies: List.from(_movies), hasMore: _hasMore));
         },
         failure: (error){
           emit(AllMoviesState.error(error: error));
