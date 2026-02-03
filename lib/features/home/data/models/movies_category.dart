@@ -3,4 +3,5 @@ enum MovieCategory {
   nowPlaying,
   topRated,
   upcoming,
+  trend,
 }
