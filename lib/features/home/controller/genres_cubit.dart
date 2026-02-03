@@ -11,7 +11,7 @@ class GenreCubit extends Cubit<GenreState> {
 
 
   Future<void> loadGenresMovies(String language,) async {
-    emit(GenreState.genresLoading());
+    emit(const GenreState.genresLoading());
     final response = await moviesRepository.getGenreList(language: language);
     response.when(
         success: (genresModels)async{
