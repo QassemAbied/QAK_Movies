@@ -1,9 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:untitled3/core/common_widgets/add_favorites_icon.dart';
+import 'package:untitled3/core/common_widgets/add_watch_list_icon.dart';
 import '../../../../core/helpers/extension.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/network/api_constance.dart';
 import '../../../../core/theming/app_text_style.dart';
+import '../../../../generated/l10n.dart';
+import '../../../home/data/models/movies_response_models.dart';
 import '../../data/models/details_movies_response.dart';
 
 class PosterAndFav extends StatelessWidget {
@@ -26,44 +30,47 @@ class PosterAndFav extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CachedNetworkImage(
-              imageUrl: ApiConstance.imagePath(detailsMovies?.posterPath ?? ''),
-              width: 150,
-              height: MediaQuery.sizeOf(context).height * 0.3,
-              fit: BoxFit.contain,
-
-              placeholder: (context, url) => SizedBox(
+            Hero(
+              tag: detailsMovies?.id ??0,
+              child: CachedNetworkImage(
+                imageUrl: ApiConstance.imagePath(detailsMovies?.posterPath ?? ''),
                 width: 150,
-                child: Image.asset(
-                  'assets/image/86075-loading-upload-image.gif',
-                  fit: BoxFit.cover,
-                ),
-              ),
+                height: MediaQuery.sizeOf(context).height * 0.3,
+                fit: BoxFit.contain,
 
-              errorWidget: (context, url, error) => Container(
-                width: 150,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.grey.shade300,
-                ),
-                child: const Icon(Icons.broken_image),
-              ),
-
-              imageBuilder: (context, imageProvider) => Container(
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(color: context.colors.onSurface, blurRadius: 5),
-                    BoxShadow(
-                      color: context.colors.onSurfaceVariant,
-                      blurRadius: 5,
-                    ),
-                  ],
-                  borderRadius: BorderRadius.circular(20),
+                placeholder: (context, url) => SizedBox(
+                  width: 150,
+                  child: Image.asset(
+                    'assets/image/86075-loading-upload-image.gif',
+                    fit: BoxFit.cover,
+                  ),
                 ),
 
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image(image: imageProvider, fit: BoxFit.cover),
+                errorWidget: (context, url, error) => Container(
+                  width: 150,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.grey.shade300,
+                  ),
+                  child: const Icon(Icons.broken_image),
+                ),
+
+                imageBuilder: (context, imageProvider) => Container(
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(color: context.colors.onSurface, blurRadius: 5),
+                      BoxShadow(
+                        color: context.colors.onSurfaceVariant,
+                        blurRadius: 5,
+                      ),
+                    ],
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image(image: imageProvider, fit: BoxFit.cover),
+                  ),
                 ),
               ),
             ),
@@ -104,7 +111,7 @@ class PosterAndFav extends StatelessWidget {
                             style: AppTextStyles.bold(
                               context,
                               size: 20,
-                              color: context.colors.onSurface,
+                              color: context.colors.primary,
                             ),
                           ),
                         ),
@@ -128,32 +135,24 @@ class PosterAndFav extends StatelessWidget {
                             style: AppTextStyles.bold(
                               context,
                               size: 20,
-                              color: context.colors.onSurface,
+                              color: context.colors.primary,
                             ),
                           ),
                         ),
                       ),
                       horizontalSpace(10),
-                      Container(
-                        height: 35,
-                        width: 35,
-                        decoration: BoxDecoration(
-                          // borderRadius: BorderRadius.circular(50),
-                          border: Border.all(
-                            color: context.colors.onSurface,
-                            width: 2,
-                          ),
-                        ),
-                        child: const Align(
-                          alignment: Alignment.center,
-                          child: Icon(Icons.favorite_border, color: Colors.red),
-                        ),
+                      AddFavoritesIcon(
+                        id: detailsMovies?.id ?? 0,
+                        model: MovieModel.fromDetails(detailsMovies!),
                       ),
+                      horizontalSpace(10),
+                     AddWatchListIcon(id: detailsMovies?.id ?? 0,
+                       model: MovieModel.fromDetails(detailsMovies!),),
                     ],
                   ),
                   verticalSpace(10),
                   Text(
-                    'Status',
+                    S.of(context).Status,
                     style: AppTextStyles.semiBold(
                       context,
                       size: 16,
@@ -171,7 +170,7 @@ class PosterAndFav extends StatelessWidget {
                   ),
                   verticalSpace(10),
                   Text(
-                    'Revenue',
+                    S.of(context).Revenue,
                     style: AppTextStyles.semiBold(
                       context,
                       size: 16,

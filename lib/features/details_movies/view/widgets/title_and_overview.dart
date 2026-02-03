@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:untitled3/generated/l10n.dart';
 
 import '../../../../core/helpers/extension.dart';
 import '../../../../core/helpers/spacing.dart';
@@ -16,7 +17,7 @@ class TitleAndOverview extends StatelessWidget {
         verticalSpace(10),
         if ((detailsMovies?.title ?? '').isNotEmpty) ...[
           Text(
-            'Original Title',
+            S.of(context).OriginalTitle,
             style: AppTextStyles.regular(
               context,
               size: 20,
@@ -35,7 +36,7 @@ class TitleAndOverview extends StatelessWidget {
           verticalSpace(10),
         ],
         Text(
-          'Overview',
+          S.of(context).Overview,
           style: AppTextStyles.regular(
             context,
             size: 20,

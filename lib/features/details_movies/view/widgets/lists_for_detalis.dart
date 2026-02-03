@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:untitled3/generated/l10n.dart';
 
-import '../../../../core/common_widgets/list_view_horizontal_widget.dart';
+import '../../../../core/common_widgets/list_horizontal/list_view_horizontal_widget.dart';
 import '../../../../core/helpers/extension.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/theming/app_text_style.dart';
@@ -28,7 +29,7 @@ class _ListsForDetailsState extends State<ListsForDetails> {
       children: [
         if (widget.images?.backdrops?.isNotEmpty ?? false) ...[
           Text(
-            'Images For Movie',
+            S.of(context).ImagesForMovie,
             style: AppTextStyles.regular(
               context,
               size: 20,
@@ -50,7 +51,7 @@ class _ListsForDetailsState extends State<ListsForDetails> {
         ],
         if (widget.credits?.cast?.isNotEmpty ?? false) ...[
           Text(
-            'Images For Cast',
+            S.of(context).ImagesForCast,
             style: AppTextStyles.regular(
               context,
               size: 20,
@@ -76,7 +77,7 @@ class _ListsForDetailsState extends State<ListsForDetails> {
         ],
         if (widget.similar?.results?.isNotEmpty ?? false) ...[
           Text(
-            'Similar Movies',
+            S.of(context).SimilarMovies,
             style: AppTextStyles.regular(
               context,
               size: 20,
