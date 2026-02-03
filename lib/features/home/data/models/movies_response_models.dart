@@ -1,4 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
+
+import '../../../details_movies/data/models/details_movies_response.dart';
 part 'movies_response_models.g.dart';
 
 @JsonSerializable()
@@ -64,6 +66,21 @@ class MovieModel {
     this.voteAverage,
     this.voteCount,
   });
+  MovieModel.fromDetails(DetailsMoviesResponse details)
+      : adult = details.adult,
+        backdropPath = details.backdropPath,
+        genreIds = details.genres?.map((e) => e.id ?? 0).toList(),
+        id = details.id,
+        originalLanguage = details.originalLanguage,
+        originalTitle = details.originalTitle,
+        overview = details.overview,
+        popularity = details.popularity,
+        posterPath = details.posterPath,
+        releaseDate = details.releaseDate,
+        title = details.title,
+        video = details.video,
+        voteAverage = details.voteAverage,
+        voteCount = details.voteCount;
 
   factory MovieModel.fromJson(Map<String, dynamic> json) =>
       _$MovieModelFromJson(json);
