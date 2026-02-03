@@ -1,5 +1,4 @@
 import 'package:untitled3/features/home/data/models/movies_genres_models.dart';
-
 import '../../../../core/network/api_error_handler.dart';
 import '../../../../core/network/api_result.dart';
 import '../../../../core/network/api_services.dart';
@@ -48,6 +47,9 @@ class MoviesRepositoryImpl implements MoviesRepository {
 
       case MovieCategory.upcoming:
         return apiServices.getUpComingMovies(page: page, language: language);
+
+      case MovieCategory.trend:
+        return apiServices.getTrendMovies(page: page, language: language);
     }
   }
 
