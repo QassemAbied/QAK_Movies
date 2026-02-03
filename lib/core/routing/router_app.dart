@@ -5,6 +5,7 @@ import 'package:untitled3/features/all_movies/view/all_movies_screen.dart';
 import 'package:untitled3/features/botton_nav/botton_nav_screen.dart';
 import 'package:untitled3/features/details_movies/view/details_screen.dart';
 import 'package:untitled3/features/home/view/home_screen.dart';
+import 'package:untitled3/features/watch_list/view/watch_list_screen.dart';
 
 import '../../features/botton_nav/controller/botton_nav_cubit.dart';
 import '../../features/details_movies/controller/details_movies_cubit.dart';
@@ -18,7 +19,11 @@ class RouterApp {
     switch (settings.name) {
       case Routes.homeScreen:
         {
-          return MaterialPageRoute(builder: (_) => HomeScreen());
+          return MaterialPageRoute(builder: (_) => const HomeScreen());
+        }
+      case Routes.watchListScreen:
+        {
+          return MaterialPageRoute(builder: (_) => const WatchListScreen());
         }
       case Routes.allMoviesScreen:
         final movieCategory = settings.arguments as MovieCategory;

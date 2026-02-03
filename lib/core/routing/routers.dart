@@ -3,4 +3,5 @@ class Routes{
   static const String allMoviesScreen='/AllMovies';
   static const String detailsMoviesScreen='/detailsMovies';
   static const String bottonNavScreen='/bottonNav';
+  static const String watchListScreen='/watchList';
 }
