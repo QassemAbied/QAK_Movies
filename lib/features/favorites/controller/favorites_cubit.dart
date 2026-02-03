@@ -71,7 +71,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
   async {
 
     _favoritesMovies.insert(0, movie);
-    favoriteIds.add(movie.id!);
+    favoriteIds.add(addFavoriteRequest.mediaId);
 
     emit(
       FavoritesState.success(
