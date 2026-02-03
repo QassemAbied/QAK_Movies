@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:untitled3/core/theming/app_colors.dart';
 
 import '../helpers/extension.dart';
 
@@ -28,7 +29,7 @@ class PartialStar extends StatelessWidget {
             child: Icon(
               Icons.star,
               size: size,
-              color: context.colors.tertiary,
+              color: AppColors.star
             ),
           ),
         ),
@@ -56,7 +57,7 @@ class RatingStars extends StatelessWidget {
         if (starValue >= 1) {
           return Icon(
             Icons.star,
-            color: context.colors.tertiary,
+            color: AppColors.star,
             size: size,
           );
         } else if (starValue > 0) {
