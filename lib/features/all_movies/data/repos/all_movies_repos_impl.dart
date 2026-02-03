@@ -44,6 +44,10 @@ class AllMoviesRepositoryImpl implements AllMoviesRepository {
 
       case MovieCategory.upcoming:
         return _apiServices.getUpComingMovies(page: page, language: language);
+
+
+      case MovieCategory.trend:
+        return _apiServices.getTrendMovies(page: page, language: language);
     }
   }
 }
