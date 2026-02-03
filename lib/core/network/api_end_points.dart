@@ -1,58 +1,36 @@
- import 'api_constance.dart';
+import 'api_constance.dart';
 
 class ApiEndPoints {
-   static const String session_id = '4d2f951a29c2f051c736fd80be25f7086707b96e';
-   static const String Create_session_id =
-       'https://api.themoviedb.org/3/authentication/session/new';
 
-   static const String PopularApi = '${ApiEndPoint.BaseUrl}/movie/popular';
-   static const String PlayingNow = '${ApiEndPoint.BaseUrl}/movie/now_playing';
-   static const String genreApi = '${ApiEndPoint.BaseUrl}/genre/movie/list';
-   static String movieByGenre(int GenreId) =>
-       '${ApiEndPoint.BaseUrl}/discover/movie?with_genres=$GenreId';
-   static const String TopRated = '${ApiEndPoint.BaseUrl}/movie/top_rated';
-   static const String UpComing = '${ApiEndPoint.BaseUrl}/movie/upcoming';
-   static const String Latest = '${ApiEndPoint.BaseUrl}/movie/latest';
-   static const String Trend = '${ApiEndPoint.BaseUrl}/trending/movie/day';
-   static String DetailsMovie(int id) => '${ApiEndPoint.BaseUrl}/movie/$id';
-   static String ImageForMovie(int id) =>
-       '${ApiEndPoint.BaseUrl}/movie/$id/images';
-   static String CastForMovie(int id) =>
-       '${ApiEndPoint.BaseUrl}/movie/$id/credits';
-   static String ReviewForMovie(int id) =>
-       '${ApiEndPoint.BaseUrl}/movie/$id/reviews';
-   static String SimilarMovie(int id) =>
-       '${ApiEndPoint.BaseUrl}/movie/$id/similar';
-   static String SearchMovie(String value) =>
-       '${ApiEndPoint.BaseUrl}/search/movie&query=$value';
-   static const String TokenRequest =
-       '${ApiEndPoint.BaseUrl}/authentication/token/new';
-   static const String validateWithLogin =
-       '${ApiEndPoint.BaseUrl}/authentication/token/validate_with_login';
-   static const String createSession =
-       '${ApiEndPoint.BaseUrl}/authentication/session/new';
-   static const String WatchList =
-       '${ApiEndPoint.BaseUrl}/account/15328661/watchlist/movies&session_id=$session_id';
-   static const String AddWatchLisrt =
-       '${ApiEndPoint.BaseUrl}/account/15328661/watchlist&session_id=$session_id';
-   static const String RemoveWatchLisrt =
-       '${ApiEndPoint.BaseUrl}/account/15328661/watchlist&session_id=$session_id';
+  static const String profile = '/account/15328661';
+  static const String popularApi = '/movie/popular';
+  static const String playingNow = '/movie/now_playing';
+  static const String genreApi = '/genre/movie/list';
+  static const String movieByGenre = '/discover/movie';
+  static const String topRated = '/movie/top_rated';
+  static const String upComing = '/movie/upcoming';
+  static const String latest = '/movie/latest';
+  static const String trend = '/trending/movie/day';
+  static const String moviesDetails = '/movie/{movie_id}';
+  static const String moviesVideo = '/movie/{movie_id}/videos';
+  static const String imageForMovie = '/movie/{movie_id}/images';
+  static const String castForMovie = '/movie/{movie_id}/credits';
+  static const String reviewForMovie = '/movie/{movie_id}/reviews';
+  static const String similarMovie ='/movie/{movie_id}/similar';
+  static const String searchMovies = '/search/movie';
+  static const String TokenRequest =
+      '${ApiConstance.BaseUrl}/authentication/token/new';
+  static const String validateWithLogin =
+      '${ApiConstance.BaseUrl}/authentication/token/validate_with_login';
+  static const String createSession =
+      '${ApiConstance.BaseUrl}/authentication/session/new';
+  static const String watchList = '/account/15328661/watchlist/movies';
+  static const String addWatchList = '/account/15328661/watchlist';
+  static const String favoritesMovies = '/account/15328661/favorite/movies';
+  static const String addFavorites = '/account/15328661/favorite';
 
-   static const String Favorites =
-       '${ApiEndPoint.BaseUrl}/account/15328661/favorite/movies&session_id=$session_id';
-   static const String AddFavorites =
-       '${ApiEndPoint.BaseUrl}/account/15328661/favorite&session_id=$session_id';
-   static const String RemoveFavorites =
-       '${ApiEndPoint.BaseUrl}/account/15328661/favorite&session_id=$session_id';
 
-   static String CheckAccount(int id) =>
-       '${ApiEndPoint.BaseUrl}/movie/$id/account_states&session_id=$session_id';
-   static String VideoMovie(int id) =>
-       '${ApiEndPoint.BaseUrl}/movie/$id/videos';
 
-   static const String RequestToken =
-       '${ApiEndPoint.BaseUrl}/authentication/token/new';
-   static const String LoginValidate =
-       '${ApiEndPoint.BaseUrl}/authentication/token/validate_with_login';
 
- }
+
+}
