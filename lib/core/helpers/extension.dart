@@ -1,4 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
+import '../theming/theme_eunm/them_eunm.dart';
 
 extension Navigation on BuildContext {
   Future<dynamic> pushNamed(String routeName, {Object? arguments}) {
@@ -20,4 +23,18 @@ extension Navigation on BuildContext {
   void popUntil(String routeName) {
     Navigator.of(this).popUntil((route) => route.settings.name == routeName);
   }
+
+
+  ColorScheme get colors => Theme.of(this).colorScheme;
 }
+extension AppLanguageExtension on AppLanguage {
+  String get code {
+    switch (this) {
+      case AppLanguage.english:
+        return 'en';
+      case AppLanguage.arabic:
+        return 'ar';
+    }
+  }
+}
+
