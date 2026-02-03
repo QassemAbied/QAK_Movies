@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:untitled3/core/common_widgets/item_list_view_horizontal_widget.dart';
+import 'package:untitled3/core/common_widgets/list_horizontal/item_list_view_horizontal_widget.dart';
 import 'package:untitled3/core/helpers/spacing.dart';
 
 class ListViewHorizontalWidget<T> extends StatelessWidget {
