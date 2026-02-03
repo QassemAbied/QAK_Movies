@@ -25,7 +25,9 @@ class SettingsScreen extends StatelessWidget {
               icon: Icons.person_outline_rounded,
               title: S.of(context).profile,
               trailing: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  context.pushNamed(Routes.profileScreen);
+                },
                 child: const Icon(Icons.arrow_forward_ios),
               ),
             ),
