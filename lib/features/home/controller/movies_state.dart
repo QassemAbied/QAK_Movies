@@ -11,10 +11,13 @@ class HomeState with _$HomeState {
   const factory HomeState.initial() = _Initial;
   const factory HomeState.loading() = Loading;
   const factory HomeState.success({
+    required List<MovieModel> trend,
     required List<MovieModel> nowPlaying,
+    required List<MovieModel> upcoming,
     required List<MovieModel> popular,
     required List<MovieModel> topRated,
-    required List<MovieModel> upcoming,
+
+
 
   }) = Success;
   const factory HomeState.error({required String error}) = Error;

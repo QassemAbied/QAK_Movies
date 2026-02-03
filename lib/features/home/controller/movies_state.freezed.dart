@@ -128,12 +128,12 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<MovieModel> nowPlaying,  List<MovieModel> popular,  List<MovieModel> topRated,  List<MovieModel> upcoming)?  success,TResult Function( String error)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<MovieModel> trend,  List<MovieModel> nowPlaying,  List<MovieModel> upcoming,  List<MovieModel> popular,  List<MovieModel> topRated)?  success,TResult Function( String error)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case Loading() when loading != null:
 return loading();case Success() when success != null:
-return success(_that.nowPlaying,_that.popular,_that.topRated,_that.upcoming);case Error() when error != null:
+return success(_that.trend,_that.nowPlaying,_that.upcoming,_that.popular,_that.topRated);case Error() when error != null:
 return error(_that.error);case _:
   return orElse();
 
@@ -152,12 +152,12 @@ return error(_that.error);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<MovieModel> nowPlaying,  List<MovieModel> popular,  List<MovieModel> topRated,  List<MovieModel> upcoming)  success,required TResult Function( String error)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<MovieModel> trend,  List<MovieModel> nowPlaying,  List<MovieModel> upcoming,  List<MovieModel> popular,  List<MovieModel> topRated)  success,required TResult Function( String error)  error,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case Loading():
 return loading();case Success():
-return success(_that.nowPlaying,_that.popular,_that.topRated,_that.upcoming);case Error():
+return success(_that.trend,_that.nowPlaying,_that.upcoming,_that.popular,_that.topRated);case Error():
 return error(_that.error);case _:
   throw StateError('Unexpected subclass');
 
@@ -175,12 +175,12 @@ return error(_that.error);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<MovieModel> nowPlaying,  List<MovieModel> popular,  List<MovieModel> topRated,  List<MovieModel> upcoming)?  success,TResult? Function( String error)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<MovieModel> trend,  List<MovieModel> nowPlaying,  List<MovieModel> upcoming,  List<MovieModel> popular,  List<MovieModel> topRated)?  success,TResult? Function( String error)?  error,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case Loading() when loading != null:
 return loading();case Success() when success != null:
-return success(_that.nowPlaying,_that.popular,_that.topRated,_that.upcoming);case Error() when error != null:
+return success(_that.trend,_that.nowPlaying,_that.upcoming,_that.popular,_that.topRated);case Error() when error != null:
 return error(_that.error);case _:
   return null;
 
@@ -257,14 +257,28 @@ String toString() {
 
 
 class Success implements HomeState {
-  const Success({required final  List<MovieModel> nowPlaying, required final  List<MovieModel> popular, required final  List<MovieModel> topRated, required final  List<MovieModel> upcoming}): _nowPlaying = nowPlaying,_popular = popular,_topRated = topRated,_upcoming = upcoming;
+  const Success({required final  List<MovieModel> trend, required final  List<MovieModel> nowPlaying, required final  List<MovieModel> upcoming, required final  List<MovieModel> popular, required final  List<MovieModel> topRated}): _trend = trend,_nowPlaying = nowPlaying,_upcoming = upcoming,_popular = popular,_topRated = topRated;
   
+
+ final  List<MovieModel> _trend;
+ List<MovieModel> get trend {
+  if (_trend is EqualUnmodifiableListView) return _trend;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_trend);
+}
 
  final  List<MovieModel> _nowPlaying;
  List<MovieModel> get nowPlaying {
   if (_nowPlaying is EqualUnmodifiableListView) return _nowPlaying;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_nowPlaying);
+}
+
+ final  List<MovieModel> _upcoming;
+ List<MovieModel> get upcoming {
+  if (_upcoming is EqualUnmodifiableListView) return _upcoming;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_upcoming);
 }
 
  final  List<MovieModel> _popular;
@@ -281,13 +295,6 @@ class Success implements HomeState {
   return EqualUnmodifiableListView(_topRated);
 }
 
- final  List<MovieModel> _upcoming;
- List<MovieModel> get upcoming {
-  if (_upcoming is EqualUnmodifiableListView) return _upcoming;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_upcoming);
-}
-
 
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
@@ -299,16 +306,16 @@ $SuccessCopyWith<Success> get copyWith => _$SuccessCopyWithImpl<Success>(this, _
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Success&&const DeepCollectionEquality().equals(other._nowPlaying, _nowPlaying)&&const DeepCollectionEquality().equals(other._popular, _popular)&&const DeepCollectionEquality().equals(other._topRated, _topRated)&&const DeepCollectionEquality().equals(other._upcoming, _upcoming));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Success&&const DeepCollectionEquality().equals(other._trend, _trend)&&const DeepCollectionEquality().equals(other._nowPlaying, _nowPlaying)&&const DeepCollectionEquality().equals(other._upcoming, _upcoming)&&const DeepCollectionEquality().equals(other._popular, _popular)&&const DeepCollectionEquality().equals(other._topRated, _topRated));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_nowPlaying),const DeepCollectionEquality().hash(_popular),const DeepCollectionEquality().hash(_topRated),const DeepCollectionEquality().hash(_upcoming));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_trend),const DeepCollectionEquality().hash(_nowPlaying),const DeepCollectionEquality().hash(_upcoming),const DeepCollectionEquality().hash(_popular),const DeepCollectionEquality().hash(_topRated));
 
 @override
 String toString() {
-  return 'HomeState.success(nowPlaying: $nowPlaying, popular: $popular, topRated: $topRated, upcoming: $upcoming)';
+  return 'HomeState.success(trend: $trend, nowPlaying: $nowPlaying, upcoming: $upcoming, popular: $popular, topRated: $topRated)';
 }
 
 
@@ -319,7 +326,7 @@ abstract mixin class $SuccessCopyWith<$Res> implements $HomeStateCopyWith<$Res> 
   factory $SuccessCopyWith(Success value, $Res Function(Success) _then) = _$SuccessCopyWithImpl;
 @useResult
 $Res call({
- List<MovieModel> nowPlaying, List<MovieModel> popular, List<MovieModel> topRated, List<MovieModel> upcoming
+ List<MovieModel> trend, List<MovieModel> nowPlaying, List<MovieModel> upcoming, List<MovieModel> popular, List<MovieModel> topRated
 });
 
 
@@ -336,12 +343,13 @@ class _$SuccessCopyWithImpl<$Res>
 
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? nowPlaying = null,Object? popular = null,Object? topRated = null,Object? upcoming = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? trend = null,Object? nowPlaying = null,Object? upcoming = null,Object? popular = null,Object? topRated = null,}) {
   return _then(Success(
-nowPlaying: null == nowPlaying ? _self._nowPlaying : nowPlaying // ignore: cast_nullable_to_non_nullable
+trend: null == trend ? _self._trend : trend // ignore: cast_nullable_to_non_nullable
+as List<MovieModel>,nowPlaying: null == nowPlaying ? _self._nowPlaying : nowPlaying // ignore: cast_nullable_to_non_nullable
+as List<MovieModel>,upcoming: null == upcoming ? _self._upcoming : upcoming // ignore: cast_nullable_to_non_nullable
 as List<MovieModel>,popular: null == popular ? _self._popular : popular // ignore: cast_nullable_to_non_nullable
 as List<MovieModel>,topRated: null == topRated ? _self._topRated : topRated // ignore: cast_nullable_to_non_nullable
-as List<MovieModel>,upcoming: null == upcoming ? _self._upcoming : upcoming // ignore: cast_nullable_to_non_nullable
 as List<MovieModel>,
   ));
 }

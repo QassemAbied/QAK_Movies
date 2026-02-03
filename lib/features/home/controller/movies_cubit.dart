@@ -16,7 +16,17 @@ class HomeCubit extends Cubit<HomeState> {
 
     final results = await Future.wait([
       moviesRepository.getMoviesByCategory(
+        category: MovieCategory.trend,
+        page: 1,
+        language: language,
+      ),
+      moviesRepository.getMoviesByCategory(
         category: MovieCategory.nowPlaying,
+        page: 1,
+        language: language,
+      ),
+      moviesRepository.getMoviesByCategory(
+        category: MovieCategory.upcoming,
         page: 1,
         language: language,
       ),
@@ -30,11 +40,9 @@ class HomeCubit extends Cubit<HomeState> {
         page: 1,
         language: language,
       ),
-      moviesRepository.getMoviesByCategory(
-        category: MovieCategory.upcoming,
-        page: 1,
-        language: language,
-      ),
+
+
+
     ]);
 
     if (isClosed) return;
@@ -54,23 +62,17 @@ class HomeCubit extends Cubit<HomeState> {
       return;
     }
 
-    // لو أي API فشل
-    // if (results.any((r) => r.isFailure)) {
-    //   final error = results
-    //       .firstWhere((r) => r.isFailure)
-    //       .failure
-    //       ?.message ?? 'Unexpected error occurred';
-    //
-    //   emit(HomeState.error(error: error));
-    //   return;
-    // }
+
 
     emit(
       HomeState.success(
-        nowPlaying: (results[0] as Success).data.results ?? [],
-        popular: (results[1] as Success).data.results ?? [],
-        topRated: (results[2] as Success).data.results ?? [],
-        upcoming: (results[3] as Success).data.results ?? [],
+        trend: (results[0] as Success).data.results ?? [],
+        nowPlaying: (results[1] as Success).data.results ?? [],
+        upcoming: (results[2] as Success).data.results ?? [],
+        popular: (results[3] as Success).data.results ?? [],
+        topRated: (results[4] as Success).data.results ?? [],
+
+
       ),
     );
   }
