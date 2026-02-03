@@ -1,20 +1,21 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:untitled3/core/thiming/app_colors.dart';
-import 'package:untitled3/core/thiming/app_text_style.dart';
+import 'package:untitled3/core/helpers/extension.dart';
+import 'package:untitled3/core/theming/app_colors.dart';
+import 'package:untitled3/core/theming/app_text_style.dart';
 import '../../../../core/network/api_constance.dart';
 import '../../data/models/movies_response_models.dart';
 
 class CarouselWidget extends StatelessWidget {
-  final List<MovieModel> popular;
-  const CarouselWidget({super.key, required this.popular});
+  final List<MovieModel> trend;
+  const CarouselWidget({super.key, required this.trend});
 
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
-      items: List.generate(popular.length, (index) {
-        final itemPopular = popular[index];
+      items: List.generate(trend.length, (index) {
+        final itemPopular = trend[index];
         return Stack(
           fit: StackFit.expand,
           children: [
@@ -22,12 +23,12 @@ class CarouselWidget extends StatelessWidget {
               foregroundDecoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    AppColors.textPrimary.withValues(alpha: 0.7),
-                    AppColors.bgDark.withValues(alpha: 0.20),
+                    AppColors.primary.withValues(alpha: 0.7),
+                    AppColors.darkCard.withValues(alpha: 0.20),
                   ],
                   begin: Alignment.bottomCenter,
                   end: Alignment.topCenter,
-                  stops: [0.14, 0.4],
+                  stops: const [0.14, 0.4],
                 ),
               ),
               child: CachedNetworkImage(
@@ -89,19 +90,19 @@ class CarouselWidget extends StatelessWidget {
                 children: [
                   FittedBox(
                     child: Text(
-                      itemPopular.originalTitle ?? '',
+                      itemPopular.title ?? '',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style:
                           AppTextStyles.bold(
                             context,
                             size: 25,
-                            color: AppColors.textPrimary,
+                            color:context.colors.onSurface
                           ).copyWith(
                             shadows: [
                               Shadow(
                                 blurRadius: 0.2,
-                                color: AppColors.bgDark,
+                                color:context.colors.surfaceContainerHigh,
                                 offset: Offset.fromDirection(100),
                               ),
                             ],
@@ -116,12 +117,12 @@ class CarouselWidget extends StatelessWidget {
                         AppTextStyles.bold(
                           context,
                           size: 18,
-                          color: AppColors.bgDeepNavy,
+                          color: AppColors.darkBackground,
                         ).copyWith(
                           shadows: [
                             Shadow(
                               blurRadius: 0.2,
-                              color: AppColors.textPrimary,
+                              color: AppColors.darkTextPrimary,
                               offset: Offset.fromDirection(100),
                             ),
                           ],

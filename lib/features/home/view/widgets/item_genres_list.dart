@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/thiming/app_colors.dart';
-import '../../../../core/thiming/app_text_style.dart';
+import '../../../../core/helpers/extension.dart';
+import '../../../../core/theming/app_colors.dart';
+import '../../../../core/theming/app_text_style.dart';
+import '../../../../core/theming/theme_cubit/app_theme_cubit.dart';
 import '../../controller/genres_cubit.dart';
 import '../../data/models/movies_genres_models.dart';
 
@@ -20,27 +22,26 @@ class ItemGenresList extends StatelessWidget {
       onTap: () {
         context.read<GenreCubit>().changeGenre(
           genreId: genres![index].id!,
-          language: 'en-US',
+          language: context.read<AppThemeCubit>().currentLanguage.code,
         );
       },
       child: Transform.scale(
         scale: selectId ? 1.05 : 0.95,
         child: AnimatedContainer(
-          //height:selectId?50:30,
           duration: const Duration(milliseconds: 250),
           curve: Curves.easeInOut,
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             vertical: 5,
             horizontal: 10,
           ),
 
           decoration: BoxDecoration(
             color: selectId
-                ? AppColors.accentGreen
-                : AppColors.textPrimary,
+                ? context.colors.primary
+                : context.colors.surface,
             borderRadius: BorderRadius.circular(17),
             border: Border.all(
-              color: AppColors.bgDeepNavy,
+              color: context.colors.onSurface,
               width: 2,
             ),
           ),
@@ -51,8 +52,8 @@ class ItemGenresList extends StatelessWidget {
                 context,
                 size: 20,
                 color: selectId
-                    ? AppColors.textPrimary
-                    : AppColors.bgDeepNavy,
+                    ? context.colors.onSurface
+                    : context.colors.onSurface,
               ),
             ),
           ),

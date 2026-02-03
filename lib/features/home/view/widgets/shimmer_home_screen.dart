@@ -26,29 +26,29 @@ class HomeShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+    return const SingleChildScrollView(
+      padding: EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const BannerShimmer(),
-          const SizedBox(height: 20),
+          BannerShimmer(),
+          SizedBox(height: 20),
           //   backgroundColor: const Color(0xFF0B1C2D),
           sectionTitleShimmer(),
-          const SizedBox(height: 12),
+          SizedBox(height: 12),
           HorizontalListShimmer(),
 
-          const SizedBox(height: 24),
+          SizedBox(height: 24),
           sectionTitleShimmer(),
-          const SizedBox(height: 12),
+          SizedBox(height: 12),
           HorizontalListShimmer(),
-          const SizedBox(height: 24),
+          SizedBox(height: 24),
           sectionTitleShimmer(),
-          const SizedBox(height: 12),
+          SizedBox(height: 12),
           HorizontalListShimmer(),
-          const SizedBox(height: 24),
+          SizedBox(height: 24),
           sectionTitleShimmer(),
-          const SizedBox(height: 12),
+          SizedBox(height: 12),
           HorizontalListShimmer(),
         ],
       ),

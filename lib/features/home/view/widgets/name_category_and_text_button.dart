@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:untitled3/generated/l10n.dart';
 
-import '../../../../core/thiming/app_colors.dart';
-import '../../../../core/thiming/app_text_style.dart';
+import '../../../../core/helpers/extension.dart';
+import '../../../../core/theming/app_colors.dart';
+import '../../../../core/theming/app_text_style.dart';
 
 class NameCategoryAndTextButton extends StatelessWidget {
   final String titleCategory;
@@ -10,18 +12,15 @@ class NameCategoryAndTextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(titleCategory, style: AppTextStyles.
-          bold(context, size: 20, color: AppColors.textPrimary),),
-          TextButton(onPressed: seeMoreButton, child:  Text(
-            'See More', style: AppTextStyles.
-          medium(context, size: 20, color: AppColors.accentGreen),),)
-        ],
-      ),
+    return  Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(titleCategory, style: AppTextStyles.
+        bold(context, size: 20, color: context.colors.onSurface),),
+        TextButton(onPressed: seeMoreButton, child:  Text(
+         S.of(context).seeMore, style: AppTextStyles.
+        medium(context, size: 20, color: context.colors.primary),),)
+      ],
     );
   }
 }

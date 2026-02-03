@@ -1,25 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:untitled3/core/helpers/extension.dart';
 import 'package:untitled3/core/helpers/spacing.dart';
-import 'package:untitled3/features/all_movies/view/all_movies_screen.dart';
+import 'package:untitled3/core/theming/theme_cubit/app_theme_cubit.dart';
+import 'package:untitled3/core/theming/theme_eunm/them_eunm.dart';
 import 'package:untitled3/features/home/controller/movies_cubit.dart';
 import 'package:untitled3/features/home/controller/movies_state.dart';
-import 'package:untitled3/features/home/data/models/movies_category.dart';
 import 'package:untitled3/features/home/view/widgets/carousel_widget.dart';
 import 'package:untitled3/features/home/view/widgets/genres_list_view.dart';
-import 'package:untitled3/features/home/view/widgets/list_view_horizontal.dart';
-import 'package:untitled3/features/home/view/widgets/name_category_and_text_button.dart';
+import 'package:untitled3/features/home/view/widgets/lists_for_home.dart';
 import 'package:untitled3/features/home/view/widgets/shimmer_home_screen.dart';
+import '../../../core/theming/theme_cubit/app_theme_state.dart';
+import '../controller/genres_cubit.dart';
 import '../controller/genres_state.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,9 +32,9 @@ class _HomeScreenState extends State<HomeScreen> {
           builder: (context, state) {
             return state.maybeWhen(
               loading: () {
-                return HomeShimmer();
+                return const HomeShimmer();
               },
-              success: (nowPlay, popular, upComing, topRate) {
+              success: (trend, nowPlay, upComing, popular, topRate) {
                 return CustomScrollView(
                   slivers: [
                     SliverFillRemaining(
@@ -45,81 +42,62 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CarouselWidget(popular: popular),
+                          // Row(
+                          //   children: [
+                          //     Column(
+                          //       children: [
+                          //         TextButton(
+                          //           onPressed: () {
+                          //             AppThemeCubit.get(
+                          //               context,
+                          //             ).selectThemeMode(AppThemeMode.light);
+                          //           },
+                          //           child: const Text('light'),
+                          //         ),
+                          //         TextButton(
+                          //           onPressed: () {
+                          //             AppThemeCubit.get(
+                          //               context,
+                          //             ).selectThemeMode(AppThemeMode.dark);
+                          //           },
+                          //           child: const Text('light'),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //     Column(
+                          //       children: [
+                          //         TextButton(
+                          //           onPressed: () {
+                          //             AppThemeCubit.get(
+                          //               context,
+                          //             ).changeLanguage(AppLanguage.english);
+                          //           },
+                          //           child: const Text('english'),
+                          //         ),
+                          //         TextButton(
+                          //           onPressed: () {
+                          //             AppThemeCubit.get(
+                          //               context,
+                          //             ).changeLanguage(AppLanguage.arabic);
+                          //           },
+                          //           child: const Text('arabic'),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //   ],
+                          // ),
+
+                          CarouselWidget(trend: trend),
                           verticalSpace(10),
-                          GenresListView(),
-                          verticalSpace(10),
-                          NameCategoryAndTextButton(
-                            titleCategory: 'Top Reacted',
-                            seeMoreButton: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return AllMoviesScreen(
-                                      category: MovieCategory.topRated,
-                                    );
-                                  },
-                                ),
-                              );
-                            },
+                          const GenresListView(),
+                          Expanded(
+                            child: ListsForHome(
+                              nowPlaying: nowPlay,
+                              upcoming: upComing,
+                              popular: popular,
+                              topRated: topRate,
+                            ),
                           ),
-                          verticalSpace(10),
-                          ListViewHorizontal(results: topRate),
-                          verticalSpace(10),
-                          NameCategoryAndTextButton(
-                            titleCategory: 'Up Coming',
-                            seeMoreButton: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return AllMoviesScreen(
-                                      category: MovieCategory.upcoming,
-                                    );
-                                  },
-                                ),
-                              );
-                            },
-                          ),
-                          verticalSpace(10),
-                          ListViewHorizontal(results: upComing),
-                          verticalSpace(10),
-                          NameCategoryAndTextButton(
-                            titleCategory: 'Popular',
-                            seeMoreButton: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return AllMoviesScreen(
-                                      category: MovieCategory.popular,
-                                    );
-                                  },
-                                ),
-                              );
-                            },
-                          ),
-                          verticalSpace(10),
-                          ListViewHorizontal(results: popular),
-                          verticalSpace(10),
-                          NameCategoryAndTextButton(
-                            titleCategory: 'Playing Now',
-                            seeMoreButton: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return AllMoviesScreen(
-                                      category: MovieCategory.nowPlaying,
-                                    );
-                                  },
-                                ),
-                              );
-                            },
-                          ),
-                          verticalSpace(10),
-                          ListViewHorizontal(results: nowPlay),
                         ],
                       ),
                     ),
@@ -131,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
               },
 
               orElse: () {
-                return SizedBox();
+                return const SizedBox();
               },
             );
           },

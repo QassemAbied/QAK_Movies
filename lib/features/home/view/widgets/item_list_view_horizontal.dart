@@ -1,11 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:untitled3/core/thiming/app_colors.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:untitled3/core/routing/routers.dart';
+import 'package:untitled3/core/theming/app_colors.dart';
+import 'package:untitled3/core/theming/theme_cubit/app_theme_cubit.dart';
+import 'package:untitled3/features/details_movies/controller/details_movies_cubit.dart';
 
 import '../../../../core/common_widgets/rating_stars_widget.dart';
+import '../../../../core/helpers/extension.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/network/api_constance.dart';
-import '../../../../core/thiming/app_text_style.dart';
+import '../../../../core/theming/app_text_style.dart';
 import '../../data/models/movies_response_models.dart';
 
 class ItemListViewHorizontal extends StatelessWidget {
@@ -21,7 +26,11 @@ class ItemListViewHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        context.pushNamed(Routes.detailsMoviesScreen,
+            arguments: item!.id);
+
+      },
       child: FittedBox(
         child: SizedBox(
           width: 120,
@@ -63,13 +72,13 @@ class ItemListViewHorizontal extends StatelessWidget {
               ),
               verticalSpace(0.5),
               Text(
-                item?.originalTitle ?? '',
+                item?.title ?? '',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: AppTextStyles.medium(
                   context,
                   size: 17,
-                  color: AppColors.textPrimary,
+                  color: context.colors.onSurface,
                 ),
               ),
               verticalSpace(0.5),
@@ -85,11 +94,11 @@ class ItemListViewHorizontal extends StatelessWidget {
                   horizontalSpace(5),
                   FittedBox(
                     fit: BoxFit.scaleDown,
-                    child: Text('(${rating})',
+                    child: Text('($rating)',
                       style: AppTextStyles.regular(
                       context,
                       size: 15,
-                      color: AppColors.textSecondary,
+                      color:context.colors.onSurfaceVariant,
                     ),),
                   ),
                 ],

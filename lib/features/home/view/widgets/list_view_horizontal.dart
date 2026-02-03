@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled3/core/helpers/spacing.dart';
-import 'package:untitled3/core/thiming/app_text_style.dart';
+import 'package:untitled3/core/theming/app_text_style.dart';
 import '../../../../core/common_widgets/rating_stars_widget.dart';
 import '../../../../core/network/api_constance.dart';
 import '../../data/models/movies_response_models.dart';
