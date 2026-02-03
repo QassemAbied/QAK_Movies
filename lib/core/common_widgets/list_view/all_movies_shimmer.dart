@@ -7,17 +7,15 @@ class AllMoviesShimmerList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      padding: const EdgeInsets.all(18),
-      itemCount:10,
+      itemCount: 10,
       separatorBuilder: (_, __) => const SizedBox(height: 15),
       itemBuilder: (context, index) {
-        return AllMoviesShimmerItem();
+        return const AllMoviesShimmerItem();
       },
     );
   }
-
-
 }
+
 class AllMoviesShimmerItem extends StatelessWidget {
   const AllMoviesShimmerItem({super.key});
 

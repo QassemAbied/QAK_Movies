@@ -8,14 +8,14 @@ import 'package:untitled3/features/favorites/data/models/add_favorite_request.da
 import 'package:untitled3/features/watch_list/controller/watch_list_cubit.dart';
 import 'package:untitled3/features/watch_list/controller/watch_list_state.dart';
 import 'package:untitled3/features/watch_list/data/models/add_watch_list_requst.dart';
-import '../../../../core/common_widgets/rating_stars_widget.dart';
-import '../../../../core/di.dart';
-import '../../../../core/helpers/extension.dart';
-import '../../../../core/helpers/spacing.dart';
-import '../../../../core/network/api_constance.dart';
-import '../../../../core/theming/app_text_style.dart';
-import '../../../favorites/controller/favorites_cubit.dart';
-import '../../../home/data/models/movies_response_models.dart';
+import '../rating_stars_widget.dart';
+import '../../di.dart';
+import '../../helpers/extension.dart';
+import '../../helpers/spacing.dart';
+import '../../network/api_constance.dart';
+import '../../theming/app_text_style.dart';
+import '../../../features/favorites/controller/favorites_cubit.dart';
+import '../../../features/home/data/models/movies_response_models.dart';
 
 class AllMoviesItem extends StatelessWidget {
   const AllMoviesItem({
@@ -31,17 +31,29 @@ class AllMoviesItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        buildExpandedImage(),
-        horizontalSpace(10),
-        buildWidgetsColumnForAllMovies(
-          movieModel: movieModel,
-          index: index,
-          rating: rating,
+    return Card(
+
+      // color: context.colors.surface,
+      // elevation:3,
+      // shape:   RoundedRectangleBorder(
+      //
+      //   borderRadius: BorderRadius.all(Radius.circular(20)),
+      // ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            buildExpandedImage(),
+            horizontalSpace(10),
+            buildWidgetsColumnForAllMovies(
+              movieModel: movieModel,
+              index: index,
+              rating: rating,
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 
@@ -90,55 +102,59 @@ class buildWidgetsColumnForAllMovies extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       flex: 2,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          verticalSpace(10),
-          Text(
-            movieModel[index].title ?? '',
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: AppTextStyles.bold(
-              context,
-              size: 20,
-              color: context.colors.onSurface,
-            ),
-          ),
-          verticalSpace(10),
-          Text(
-            movieModel[index].overview ?? '',
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: AppTextStyles.regular(
-              context,
-              size: 16,
-              color: context.colors.onSurfaceVariant,
-            ),
-          ),
-          verticalSpace(10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              RatingStars(rating: rating),
-              Text(
-                '($rating)',
-                style: AppTextStyles.regular(
-                  context,
-                  size: 15,
-                  color: context.colors.onSurfaceVariant,
-                ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            verticalSpace(10),
+            Text(
+              movieModel[index].title ?? '',
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: AppTextStyles.bold(
+                context,
+                size: 20,
+                color: context.colors.onSurface,
               ),
-            ],
-          ),
-          verticalSpace(10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              AddFavoritesIcon( model: movieModel[index], id: movieModel[index].id??0,),
-              AddWatchListIcon( model: movieModel[index], id: movieModel[index].id??0,),
-            ],
-          ),
-        ],
+            ),
+            verticalSpace(10),
+            Text(
+              movieModel[index].overview ?? '',
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: AppTextStyles.regular(
+                context,
+                size: 16,
+                color: context.colors.onSurfaceVariant,
+              ),
+            ),
+            verticalSpace(10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                RatingStars(rating: rating),
+                Text(
+                  '($rating)',
+                  style: AppTextStyles.regular(
+                    context,
+                    size: 15,
+                    color: context.colors.onSurfaceVariant,
+                  ),
+                ),
+              ],
+            ),
+            verticalSpace(10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                AddFavoritesIcon( model: movieModel[index], id: movieModel[index].id??0,),
+                AddWatchListIcon( model: movieModel[index], id: movieModel[index].id??0,),
+              ],
+            ),
+           // verticalSpace(10),
+          ],
+        ),
       ),
     );
   }
