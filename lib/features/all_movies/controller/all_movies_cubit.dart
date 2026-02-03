@@ -11,7 +11,8 @@ class AllMoviesCubit extends Cubit<AllMoviesState> {
   final MovieCategory category;
   final String language;
   AllMoviesCubit({required this.allMoviesRepository,
-      required this.category, required this.language}) : super(const AllMoviesState.initial());
+      required this.category, required this.language})
+      : super(const AllMoviesState.initial());
   int _page = 1;
   bool _isFetching = false;
   bool _hasMore = true;
