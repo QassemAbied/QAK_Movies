@@ -5,6 +5,8 @@ import 'package:untitled3/features/all_movies/view/all_movies_screen.dart';
 import 'package:untitled3/features/botton_nav/botton_nav_screen.dart';
 import 'package:untitled3/features/details_movies/view/details_screen.dart';
 import 'package:untitled3/features/home/view/home_screen.dart';
+import 'package:untitled3/features/profile/controller/profile_cubit.dart';
+import 'package:untitled3/features/profile/view/widgets/profile_screen.dart';
 import 'package:untitled3/features/watch_list/view/watch_list_screen.dart';
 
 import '../../features/botton_nav/controller/botton_nav_cubit.dart';
@@ -52,6 +54,15 @@ class RouterApp {
             builder: (_) => BlocProvider(
               create: (context) => ChangeBottomCubit(),
               child: BottonNavScreen(),
+            ),
+          );
+        }
+      case Routes.profileScreen:
+        {
+          return MaterialPageRoute(
+            builder: (_) => BlocProvider(
+              create: (context) => Sl<ProfileCubit>()..loadProfile(),
+              child: const ProfileScreen(),
             ),
           );
         }
