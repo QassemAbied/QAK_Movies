@@ -24,7 +24,7 @@ class PartialStar extends StatelessWidget {
         ),
         ClipRect(
           child: Align(
-            alignment: Alignment.centerLeft,
+            alignment: AlignmentDirectional.centerStart,
             widthFactor: fillPercent.clamp(0.0, 1.0),
             child: Icon(
               Icons.star,
