@@ -6,6 +6,7 @@ import 'package:untitled3/core/theming/theme_cubit/app_theme_state.dart';
 import 'package:untitled3/core/theming/theme_eunm/them_eunm.dart';
 import 'package:untitled3/features/home/controller/movies_cubit.dart';
 import 'package:untitled3/features/watch_list/controller/watch_list_cubit.dart';
+import 'package:untitled3/movie_app.dart';
 import 'core/di.dart';
 import 'core/helpers/extension.dart';
 import 'core/helpers/shard_pref_key.dart';
@@ -24,27 +25,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  final savedMode = await SharedPrefHelper.getString(
-    SharedPrefKey.themeModeKey,
-  );
 
-  AppThemeMode startMode = AppThemeMode.system;
-
-  if (savedMode != null) {
-    startMode = AppThemeMode.values.firstWhere(
-      (e) => e.name == savedMode,
-      orElse: () => AppThemeMode.system,
-    );
-  }
-  AppLanguage currentLanguage=AppLanguage.english;
-  final language=
-  await SharedPrefHelper.getString(SharedPrefKey.themeLanguageKey);
-  if (language != null) {
-    currentLanguage = AppLanguage.values.firstWhere(
-          (e) => e.name == language,
-      orElse: () => AppLanguage.english,
-    );
-  }
+  final startMode = await getSavedTheme();
+  final currentLanguage = await getSavedLanguage();
   ServiceLocator().init();
   runApp(
     MultiBlocProvider(
@@ -72,48 +55,34 @@ void main() async {
 
         ),
       ],
-      child: MyApp(startMode,currentLanguage),
+      child: const MovieApp(),
     ),
   );
 }
+Future<AppThemeMode> getSavedTheme() async {
+  final savedMode =
+  await SharedPrefHelper.getString(SharedPrefKey.themeModeKey);
 
-class MyApp extends StatelessWidget {
-  final AppThemeMode startMode;
- final AppLanguage currentLanguage;
-  const MyApp(this.startMode, this.currentLanguage, {Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocListener<AppThemeCubit, AppThemeState>(
-      listener: (context, state) {
-        if (state is AppChangeLanguageState) {
-          final lang = state.language.code;
-
-          context.read<HomeCubit>().loadHome(lang);
-          context.read<GenreCubit>().loadGenresMovies(lang);
-        }
-      },
-  child: BlocBuilder<AppThemeCubit, AppThemeState>(
-      builder: (context, state) {
-        return MaterialApp(
-          locale: AppThemeCubit.get(context).localeLanguage(),
-          localizationsDelegates: const [
-            S.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: S.delegate.supportedLocales,
-          debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
-          theme: AppTheme.lightTheme(),
-          darkTheme: AppTheme.darkTheme(),
-          themeMode: AppThemeCubit.get(context).themeMode(),
-          initialRoute: Routes.bottonNavScreen,
-          onGenerateRoute: RouterApp.generateRoute,
-        );
-      },
-    ),
-);
+  if (savedMode != null) {
+    return AppThemeMode.values.firstWhere(
+          (e) => e.name == savedMode,
+      orElse: () => AppThemeMode.system,
+    );
   }
+  return AppThemeMode.system;
 }
+Future<AppLanguage> getSavedLanguage() async {
+  final language =
+  await SharedPrefHelper.getString(SharedPrefKey.themeLanguageKey);
+
+  if (language != null) {
+    return AppLanguage.values.firstWhere(
+          (e) => e.name == language,
+      orElse: () => AppLanguage.english,
+    );
+  }
+
+  return AppLanguage.english;
+}
+
+
