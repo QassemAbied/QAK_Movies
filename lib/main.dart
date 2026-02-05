@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:untitled3/core/theming/theme_cubit/app_theme_cubit.dart';
@@ -14,11 +15,15 @@ import 'core/routing/routers.dart';
 import 'core/theming/app_theme.dart';
 import 'features/favorites/controller/favorites_cubit.dart';
 import 'features/home/controller/genres_cubit.dart';
+import 'firebase_options.dart';
 import 'generated/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   final savedMode = await SharedPrefHelper.getString(
     SharedPrefKey.themeModeKey,
   );
