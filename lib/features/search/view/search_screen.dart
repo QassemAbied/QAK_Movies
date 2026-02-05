@@ -54,7 +54,12 @@ class _SearchScreenState extends State<SearchScreen> {
     return BlocProvider.value(
       value: _cubit,
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+      title: Text(
+      S.of(context).Search,
+
+    ),
+    ),
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 18),          child: Column(
             children: [
