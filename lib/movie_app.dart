@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:untitled3/features/watch_list/controller/watch_list_cubit.dart';
 import 'core/helpers/extension.dart';
 import 'core/routing/router_app.dart';
 import 'core/routing/routers.dart';
 import 'core/theming/app_theme.dart';
 import 'core/theming/theme_cubit/app_theme_cubit.dart';
 import 'core/theming/theme_cubit/app_theme_state.dart';
+import 'features/favorites/controller/favorites_cubit.dart';
 import 'features/home/controller/genres_cubit.dart';
 import 'features/home/controller/movies_cubit.dart';
 import 'generated/l10n.dart';
@@ -23,6 +25,8 @@ class MovieApp extends StatelessWidget {
 
           context.read<HomeCubit>().loadHome(lang);
           context.read<GenreCubit>().loadGenresMovies(lang);
+          context.read<FavoritesCubit>().loadFavoritesMovies(language: lang);
+          context.read<WatchListCubit>().loadWatchList(language: lang);
         }
       },
       child: BlocBuilder<AppThemeCubit, AppThemeState>(
