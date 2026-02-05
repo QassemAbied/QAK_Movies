@@ -1,66 +1,88 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:untitled3/presentation/state_management/authentication_bloc/authentication_bloc.dart';
-import 'package:untitled3/presentation/state_management/authentication_bloc/authentication_event.dart';
-import 'package:untitled3/presentation/state_management/cubit/cubit.dart';
-import 'package:untitled3/presentation/state_management/favorite_bloc/favorit_bloc.dart';
-import 'package:untitled3/presentation/state_management/favorite_bloc/favorite_event.dart';
-import 'package:untitled3/presentation/state_management/movie_bloc/movie_bloc.dart';
-import 'package:untitled3/presentation/state_management/movie_bloc/movie_event.dart';
-import 'package:untitled3/presentation/state_management/movie_details_bloc/details_bloc.dart';
-import 'package:untitled3/presentation/state_management/watchlist_bloc/watchlist_bloc.dart';
-import 'package:untitled3/presentation/state_management/watchlist_bloc/watchlist_event.dart';
-import 'package:untitled3/presentation/views/splash_screen.dart';
+import 'package:untitled3/core/theming/theme_cubit/app_theme_cubit.dart';
+import 'package:untitled3/core/theming/theme_cubit/app_theme_state.dart';
+import 'package:untitled3/core/theming/theme_eunm/them_eunm.dart';
+import 'package:untitled3/features/home/controller/movies_cubit.dart';
+import 'package:untitled3/features/watch_list/controller/watch_list_cubit.dart';
+import 'package:untitled3/movie_app.dart';
 import 'core/di.dart';
+import 'core/helpers/extension.dart';
+import 'core/helpers/shard_pref_key.dart';
+import 'core/helpers/shared_pref_helpers.dart';
+import 'core/routing/router_app.dart';
+import 'core/routing/routers.dart';
+import 'core/theming/app_theme.dart';
+import 'features/favorites/controller/favorites_cubit.dart';
+import 'features/home/controller/genres_cubit.dart';
+import 'firebase_options.dart';
+import 'generated/l10n.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  final startMode = await getSavedTheme();
+  final currentLanguage = await getSavedLanguage();
   ServiceLocator().init();
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (BuildContext context) => Sl<ChangeBottomCubit>(),
-        ),
-        BlocProvider(
-            create: (context) =>
-                Sl<AuthenticationBloc>()..add(RequestTokenEvent())),
-        BlocProvider(create: (context) => Sl<FavoritesBloc>()),
-        BlocProvider(
-            create: (BuildContext context) => Sl<MovieBloc>()
-              ..add(PopularEvent())
-              ..add(GenreEvent())
-              ..add(MovieByGenreEvent(28, ''))
-              ..add(TopRatedEvent())
-              ..add(UpComingEvent())
-              ..add(TrendEvent())),
-        BlocProvider(
-            create: (context) =>
-                Sl<WatchlistBloc>()..add(GetWatchListItemsEvent())),
-        BlocProvider(create: (context) => Sl<MovieDetailsBloc>()),
-        BlocProvider(create: (context) => Sl<FavoritesBloc>()),
+        BlocProvider(create: (_) => AppThemeCubit(startMode, currentLanguage)),
         BlocProvider(
           create: (context) =>
-              Sl<FavoritesBloc>()..add(GetFavoritesItemsEvent()),
+              Sl<HomeCubit>()
+                ..loadHome(context.read<AppThemeCubit>().currentLanguage.code),
+        ),
+        BlocProvider(
+          create: (context) => Sl<GenreCubit>()
+            ..loadGenresMovies(
+                context.read<AppThemeCubit>().currentLanguage.code
+            ),
+        ),
+        BlocProvider(
+          create: (context) => Sl<FavoritesCubit>()..loadFavoritesMovies(
+              language: context.read<AppThemeCubit>().currentLanguage.code),
+
+        ),
+        BlocProvider(
+          create: (context) => Sl<WatchListCubit>()..loadWatchList(
+              language: context.read<AppThemeCubit>().currentLanguage.code),
+
         ),
       ],
-      child: const MyApp(),
+      child: const MovieApp(),
     ),
   );
 }
+Future<AppThemeMode> getSavedTheme() async {
+  final savedMode =
+  await SharedPrefHelper.getString(SharedPrefKey.themeModeKey);
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.grey,
-      ),
-      home: SplashScreen(),
+  if (savedMode != null) {
+    return AppThemeMode.values.firstWhere(
+          (e) => e.name == savedMode,
+      orElse: () => AppThemeMode.system,
     );
   }
+  return AppThemeMode.system;
 }
+Future<AppLanguage> getSavedLanguage() async {
+  final language =
+  await SharedPrefHelper.getString(SharedPrefKey.themeLanguageKey);
+
+  if (language != null) {
+    return AppLanguage.values.firstWhere(
+          (e) => e.name == language,
+      orElse: () => AppLanguage.english,
+    );
+  }
+
+  return AppLanguage.english;
+}
+
+
