@@ -9,7 +9,7 @@ class AppThemeCubit extends Cubit<AppThemeState> {
   AppThemeMode currentMode;
   AppLanguage currentLanguage;
   AppThemeCubit(this.currentMode, this.currentLanguage)
-    : super(AppIntiThemeState());
+    : super(AppIntiThemeState(currentMode));
 
   static AppThemeCubit get(context) => BlocProvider.of(context);
 

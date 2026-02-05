@@ -2,7 +2,8 @@ import '../theme_eunm/them_eunm.dart';
 
 abstract class AppThemeState {}
 class AppIntiThemeState extends AppThemeState{
-
+  final AppThemeMode mode;
+  AppIntiThemeState(this.mode);
 }
 
 class AppChangeThemeState extends AppThemeState{
