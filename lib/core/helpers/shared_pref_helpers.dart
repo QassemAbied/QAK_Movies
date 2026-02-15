@@ -1,71 +1,45 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefHelper {
+
   SharedPrefHelper._();
 
+  static late SharedPreferences _prefs;
 
-  static Future<void> removeData(String key) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    await sharedPreferences.remove(key);
+  static Future<void> init() async {
+    _prefs = await SharedPreferences.getInstance();
   }
 
-  static Future<void> clearAllData() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    await sharedPreferences.clear();
-  }
+  // ---------- SET ----------
+  static Future<void> setData(String key, dynamic value) async {
 
-  static Future<Null> setData(String key, value) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    switch (value.runtimeType) {
-      case String:
-        await sharedPreferences.setString(key, value);
-        break;
-      case int:
-        await sharedPreferences.setInt(key, value);
-        break;
-      case bool:
-        await sharedPreferences.setBool(key, value);
-        break;
-      case double:
-        await sharedPreferences.setDouble(key, value);
-        break;
-      default:
-        return null;
+    if (value is String) {
+      await _prefs.setString(key, value);
+    } else if (value is int) {
+      await _prefs.setInt(key, value);
+    } else if (value is bool) {
+      await _prefs.setBool(key, value);
+    } else if (value is double) {
+      await _prefs.setDouble(key, value);
     }
   }
 
-  static Future<bool> getBool(String key) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    return sharedPreferences.getBool(key) ?? false;
-  }
+  // ---------- GET (SYNC) ----------
 
-  static Future<double> getDouble(String key) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    return sharedPreferences.getDouble(key) ?? 0.0;
-  }
+  static String? getString(String key) => _prefs.getString(key);
 
-  static Future<int> getInt(String key) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    return sharedPreferences.getInt(key) ?? 0;
-  }
+  static int getInt(String key) => _prefs.getInt(key) ?? 0;
 
-  static Future<String> getString(String key) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    return sharedPreferences.getString(key) ?? '';
-  }
+  static double getDouble(String key) => _prefs.getDouble(key) ?? 0.0;
 
-  // static Future<void> setSecuredString(String key, String value) async {
-  //   const flutterSecureStorage = FlutterSecureStorage();
-  //   await flutterSecureStorage.write(key: key, value: value);
-  // }
-  //
-  // static Future<String> getSecuredString(String key) async {
-  //   const flutterSecureStorage = FlutterSecureStorage();
-  //   return await flutterSecureStorage.read(key: key) ?? '';
-  // }
-  //
-  // static Future<void> clearAllSecuredData() async {
-  //   const flutterSecureStorage = FlutterSecureStorage();
-  //   await flutterSecureStorage.deleteAll();
-  // }
+  static bool getBool(String key) => _prefs.getBool(key) ?? false;
+
+  // ---------- REMOVE ----------
+
+  static Future<void> removeData(String key) async =>
+      _prefs.remove(key);
+
+  static Future<void> clearAllData() async =>
+      _prefs.clear();
 }
+
