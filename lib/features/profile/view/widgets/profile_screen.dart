@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:untitled3/core/helpers/spacing.dart';
-
-import '../../controller/profile_riverpod.dart';
+import '../../../providers.dart';
 
 String getCountryName(String code) {
   switch (code) {
