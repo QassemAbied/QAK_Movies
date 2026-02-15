@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:untitled3/core/helpers/extension.dart';
 import 'package:untitled3/core/helpers/spacing.dart';
 import 'package:untitled3/core/routing/routers.dart';
-import 'package:untitled3/core/theming/theme_cubit/app_theme_cubit.dart';
 import 'package:untitled3/features/profile/view/widgets/card_widget.dart';
 import 'package:untitled3/features/profile/view/widgets/show_sheet_language.dart';
-
+import '../../../core/theming/settings_controller/settings_riverpod.dart';
 import '../../../core/theming/theme_eunm/them_eunm.dart';
 import '../../../generated/l10n.dart';
 
@@ -44,19 +43,27 @@ class SettingsScreen extends StatelessWidget {
             ),
 
             verticalSpace(15.0),
-            CardWidget(
-              icon: Icons.dark_mode,
-              title: S.of(context).theme,
-              trailing: Switch(
-                value:
-                    context.watch<AppThemeCubit>().currentMode ==
-                    AppThemeMode.dark,
-                onChanged: (value) {
-                  context.read<AppThemeCubit>().selectThemeMode(
-                    value ? AppThemeMode.dark : AppThemeMode.light,
-                  );
-                },
-              ),
+            Consumer(
+              builder: (context, ref, child) {
+                final settings = ref.watch(appSettingsProvider);
+
+                return CardWidget(
+                  icon: Icons.dark_mode,
+                  title: S.of(context).theme,
+
+                  trailing: Switch(
+                    value: settings.themeMode == AppThemeMode.dark,
+
+                    onChanged: (value) {
+                      ref
+                          .read(appSettingsProvider.notifier)
+                          .selectThemeMode(
+                            value ? AppThemeMode.dark : AppThemeMode.light,
+                          );
+                    },
+                  ),
+                );
+              },
             ),
 
             verticalSpace(15.0),
