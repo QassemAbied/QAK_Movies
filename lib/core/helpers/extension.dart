@@ -38,3 +38,25 @@ extension AppLanguageExtension on AppLanguage {
   }
 }
 
+extension ThemeMapper on AppThemeMode {
+  ThemeMode toThemeMode() {
+    switch (this) {
+      case AppThemeMode.light:
+        return ThemeMode.light;
+      case AppThemeMode.dark:
+        return ThemeMode.dark;
+      case AppThemeMode.system:
+        return ThemeMode.system;
+    }
+  }
+}
+extension LocaleMapper on AppLanguage{
+  Locale toLocale(){
+    switch (this) {
+      case AppLanguage.english:
+        return const Locale('en');
+      case AppLanguage.arabic:
+        return const Locale('ar');
+    }
+  }
+}
