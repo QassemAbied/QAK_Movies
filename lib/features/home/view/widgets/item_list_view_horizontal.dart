@@ -1,11 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:untitled3/core/routing/routers.dart';
-import 'package:untitled3/core/theming/app_colors.dart';
-import 'package:untitled3/core/theming/theme_cubit/app_theme_cubit.dart';
-import 'package:untitled3/features/details_movies/controller/details_movies_cubit.dart';
-
 import '../../../../core/common_widgets/rating_stars_widget.dart';
 import '../../../../core/helpers/extension.dart';
 import '../../../../core/helpers/spacing.dart';

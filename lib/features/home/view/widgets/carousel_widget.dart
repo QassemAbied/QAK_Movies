@@ -45,41 +45,6 @@ class CarouselWidget extends StatelessWidget {
                 },
               ),
             ),
-
-            // BlocProvider(
-            //   create: (context) =>
-            //       Sl<MovieDetailsBloc>()..add(VideoMovieEvent(item.id)),
-            //   child: BlocBuilder<MovieDetailsBloc, MovieDetailsState>(
-            //     builder: (context, state) {
-            //       return GestureDetector(
-            //         onTap: () async {
-            //           if (state.video!.isNotEmpty) {
-            //             BlocProvider.of<MovieDetailsBloc>(context)
-            //               ..add(VideoMovieEvent(item.id));
-            //
-            //             final Uri _url = Uri.parse(
-            //                 'https://www.youtube.com/embed/${state.video}');
-            //             if (!await launchUrl(_url)) {
-            //               throw Exception('Could not launch ');
-            //             }
-            //           } else {
-            //             Navigator.push(
-            //                 context,
-            //                 MaterialPageRoute(
-            //                     builder: (context) => NoVideoScreen()));
-            //           }
-            //         },
-            //         child: Center(
-            //           child: Icon(
-            //             Icons.play_circle_outline_outlined,
-            //             color: Colors.amberAccent,
-            //             size: 60,
-            //           ),
-            //         ),
-            //       );
-            //     },
-            //   ),
-            // ),
             Positioned(
               left: 10,
               right: 10,

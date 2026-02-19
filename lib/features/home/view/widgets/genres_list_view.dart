@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:untitled3/features/home/view/widgets/shimmer_home_screen.dart';
 import '../../../../core/helpers/spacing.dart';
-import '../../controller/genres_cubit.dart';
-import '../../controller/genres_state.dart';
+import '../../../providers.dart';
 import 'item_genres_list.dart';
 import 'list_view_horizontal.dart';
 
@@ -12,23 +11,12 @@ class GenresListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GenreCubit, GenreState>(
-      builder: (context, state) {
-        return state.maybeWhen(
-          genresLoading: () {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                sectionTitleShimmer(),
-                const SizedBox(height: 12),
-                HorizontalListShimmer(),
-              ],
-            );
-          },
-          genresError: (e) {
-            return Text(e.message);
-          },
-          genresSuccess: (genres, movieMode, int id) {
+    return Consumer(
+      builder: (BuildContext context, WidgetRef ref, Widget? child) {
+        final genresData = ref.watch(genresProvider('en'));
+
+        return genresData.when(
+          data: (data) {
             return Column(
               children: [
                 Padding(
@@ -38,10 +26,15 @@ class GenresListView extends StatelessWidget {
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
-                        final selectId = genres[index].id == id;
-                        return ItemGenresList(selectId: selectId, genres: genres,index: index,);
+                        final selectId =
+                            data.genres[index].id == data.selectedGenreId;
+                        return ItemGenresList(
+                          selectId: selectId,
+                          genres: data.genres??[],
+                          index: index,
+                        );
                       },
-                      itemCount: genres.length,
+                      itemCount: data.genres?.length ?? 0,
                       separatorBuilder: (context, index) {
                         return horizontalSpace(10);
                       },
@@ -49,17 +42,25 @@ class GenresListView extends StatelessWidget {
                   ),
                 ),
                 verticalSpace(20),
-                ListViewHorizontal(results: movieMode),
+                ListViewHorizontal(results: data.movies),
               ],
             );
           },
-
-          orElse: () {
-            return SizedBox();
+          error: (e, _) {
+            return Text(e.toString());
+          },
+          loading: () {
+            return const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                sectionTitleShimmer(),
+                SizedBox(height: 12),
+                HorizontalListShimmer(),
+              ],
+            );
           },
         );
       },
     );
   }
 }
-
