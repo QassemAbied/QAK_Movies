@@ -1,20 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:untitled3/core/common_widgets/add_favorites_icon.dart';
-import 'package:untitled3/core/common_widgets/add_watch_list_icon.dart';
-import 'package:untitled3/features/favorites/controller/favorites_state.dart';
-import 'package:untitled3/features/favorites/data/models/add_favorite_request.dart';
-import 'package:untitled3/features/watch_list/controller/watch_list_cubit.dart';
-import 'package:untitled3/features/watch_list/controller/watch_list_state.dart';
-import 'package:untitled3/features/watch_list/data/models/add_watch_list_requst.dart';
+import '../add_favorites_icon.dart';
+import '../add_watch_list_icon.dart';
 import '../rating_stars_widget.dart';
-import '../../di.dart';
 import '../../helpers/extension.dart';
 import '../../helpers/spacing.dart';
 import '../../network/api_constance.dart';
 import '../../theming/app_text_style.dart';
-import '../../../features/favorites/controller/favorites_cubit.dart';
 import '../../../features/home/data/models/movies_response_models.dart';
 
 class AllMoviesItem extends StatelessWidget {
@@ -32,13 +24,6 @@ class AllMoviesItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-
-      // color: context.colors.surface,
-      // elevation:3,
-      // shape:   RoundedRectangleBorder(
-      //
-      //   borderRadius: BorderRadius.all(Radius.circular(20)),
-      // ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
         child: Row(
@@ -148,11 +133,10 @@ class buildWidgetsColumnForAllMovies extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AddFavoritesIcon( model: movieModel[index], id: movieModel[index].id??0,),
+               AddFavoritesIcon( model: movieModel[index], id: movieModel[index].id??0,),
                 AddWatchListIcon( model: movieModel[index], id: movieModel[index].id??0,),
               ],
             ),
-           // verticalSpace(10),
           ],
         ),
       ),
