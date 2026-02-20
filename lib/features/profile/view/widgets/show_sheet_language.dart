@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../../../../core/theming/settings_controller/settings_riverpod.dart';
-import '../../../../core/theming/theme_cubit/app_theme_cubit.dart';
 import '../../../../core/theming/theme_eunm/them_eunm.dart';
 
 Future showModalBottom({required BuildContext context}){
