@@ -1,11 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:untitled3/features/watch_list/controller/watch_list_cubit.dart';
-import 'package:untitled3/features/watch_list/data/models/add_watch_list_requst.dart';
-
-import '../../../features/favorites/controller/favorites_cubit.dart';
-import '../../../features/favorites/data/models/add_favorite_request.dart';
 import '../../../features/home/data/models/movies_response_models.dart';
 import '../../helpers/extension.dart';
 import '../../helpers/spacing.dart';
@@ -35,7 +29,6 @@ class GirdViewItem extends StatelessWidget {
           height: index % 4 == 0 ? 260 : 290,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            //  mainAxisSize: MainAxisSize.min,
             children: [
               Container(
                 padding: const EdgeInsets.all(7),
@@ -56,8 +49,14 @@ class GirdViewItem extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    AddFavoritesIcon(id: result[index].id!, model: result[index],),
-                    AddWatchListIcon(id: result[index].id!, model: result[index],),
+                    AddFavoritesIcon(
+                      id: result[index].id!,
+                      model: result[index],
+                    ),
+                    AddWatchListIcon(
+                      id: result[index].id!,
+                      model: result[index],
+                    ),
                   ],
                 ),
               ),
@@ -70,7 +69,6 @@ class GirdViewItem extends StatelessWidget {
                     result[index].posterPath ?? '',
                   ),
                   width: double.infinity,
-                  //  height: index % 4 == 0 ? 180 : 220,
                   fit: BoxFit.fill,
 
                   placeholder: (context, url) => Image.asset(
@@ -113,14 +111,6 @@ class GirdViewItem extends StatelessWidget {
                       child: Image(image: imageProvider, fit: BoxFit.fill),
                     ),
                   ),
-                  // imageBuilder: (context, imageProvider) =>
-                  //     ClipRRect(
-                  //       borderRadius: BorderRadius.circular(20),
-                  //       child: Image(
-                  //         image: imageProvider,
-                  //         fit: BoxFit.cover,
-                  //       ),
-                  //     ),
                 ),
               ),
               verticalSpace(5),
