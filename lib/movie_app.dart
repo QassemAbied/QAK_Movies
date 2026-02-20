@@ -14,11 +14,10 @@ class MovieApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-
       builder: (BuildContext context, WidgetRef ref, Widget? child) {
         final settings = ref.watch(appSettingsProvider);
         return MaterialApp(
-           locale: settings.locale.toLocale(),
+          locale: settings.locale.toLocale(),
           localizationsDelegates: const [
             S.delegate,
             GlobalMaterialLocalizations.delegate,
@@ -34,8 +33,7 @@ class MovieApp extends StatelessWidget {
           initialRoute: Routes.bottonNavScreen,
           onGenerateRoute: RouterApp.generateRoute,
         );
-      }
+      },
     );
-      
   }
 }
