@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:untitled3/core/helpers/extension.dart';
 import 'package:untitled3/features/home/view/widgets/shimmer_home_screen.dart';
 import '../../../../core/helpers/spacing.dart';
+import '../../../../core/theming/settings_controller/settings_riverpod.dart';
 import '../../../providers.dart';
 import 'item_genres_list.dart';
 import 'list_view_horizontal.dart';
@@ -13,7 +15,8 @@ class GenresListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (BuildContext context, WidgetRef ref, Widget? child) {
-        final genresData = ref.watch(genresProvider('en'));
+        final lang = ref.watch(appSettingsProvider).locale;
+        final genresData = ref.watch(genresProvider(lang.code));
 
         return genresData.when(
           data: (data) {
@@ -34,7 +37,7 @@ class GenresListView extends StatelessWidget {
                           index: index,
                         );
                       },
-                      itemCount: data.genres?.length ?? 0,
+                      itemCount: data.genres.length ?? 0,
                       separatorBuilder: (context, index) {
                         return horizontalSpace(10);
                       },

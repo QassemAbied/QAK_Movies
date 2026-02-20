@@ -7,7 +7,7 @@ import '../data/models/genre_data.dart';
 import '../data/models/movies_genres_models.dart';
 
 class GenreNotifier extends FamilyAsyncNotifier<GenreUiModel, String> {
-  MoviesRepository get _repos => ref.watch(homeReposProvider);
+  MoviesRepository get _repos => ref.read(homeReposProvider);
 
   late String _language;
 
@@ -72,7 +72,7 @@ class GenreNotifier extends FamilyAsyncNotifier<GenreUiModel, String> {
     state = result.when(
       data: (newData) => AsyncData(newData),
       error: (e, stack) => AsyncError(e, stack),
-      loading: () => state, // مش هتحصل غالبًا
+      loading: () => state,
     );
   }
 }

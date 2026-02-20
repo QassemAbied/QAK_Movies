@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:untitled3/core/helpers/extension.dart';
 import 'package:untitled3/core/helpers/spacing.dart';
 import 'package:untitled3/features/home/view/widgets/carousel_widget.dart';
 import 'package:untitled3/features/home/view/widgets/genres_list_view.dart';
 import 'package:untitled3/features/home/view/widgets/lists_for_home.dart';
 import 'package:untitled3/features/home/view/widgets/shimmer_home_screen.dart';
 import 'package:untitled3/features/providers.dart';
+import '../../../core/theming/settings_controller/settings_riverpod.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -16,7 +18,8 @@ class HomeScreen extends StatelessWidget {
       body: SafeArea(
         child: Consumer(
           builder: (BuildContext context, WidgetRef ref, Widget? child) {
-            final homeState = ref.watch(homeProvider('en'));
+            final lang = ref.watch(appSettingsProvider).locale;
+            final homeState = ref.watch(homeProvider(lang.code));
 
             return homeState.when(
               data: (homeData) {
