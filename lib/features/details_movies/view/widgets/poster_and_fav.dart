@@ -31,9 +31,11 @@ class PosterAndFav extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Hero(
-              tag: detailsMovies?.id ??0,
+              tag: detailsMovies?.id ?? 0,
               child: CachedNetworkImage(
-                imageUrl: ApiConstance.imagePath(detailsMovies?.posterPath ?? ''),
+                imageUrl: ApiConstance.imagePath(
+                  detailsMovies?.posterPath ?? '',
+                ),
                 width: 150,
                 height: MediaQuery.sizeOf(context).height * 0.3,
                 fit: BoxFit.contain,
@@ -140,14 +142,16 @@ class PosterAndFav extends StatelessWidget {
                           ),
                         ),
                       ),
-                     //  horizontalSpace(10),
-                     //  AddFavoritesIcon(
-                     //    id: detailsMovies?.id ?? 0,
-                     //    model: MovieModel.fromDetails(detailsMovies!),
-                     //  ),
-                     //  horizontalSpace(10),
-                     // AddWatchListIcon(id: detailsMovies?.id ?? 0,
-                     //   model: MovieModel.fromDetails(detailsMovies!),),
+                      horizontalSpace(10),
+                      AddFavoritesIcon(
+                        id: detailsMovies?.id ?? 0,
+                        model: MovieModel.fromDetails(detailsMovies!),
+                      ),
+                      horizontalSpace(10),
+                      AddWatchListIcon(
+                        id: detailsMovies?.id ?? 0,
+                        model: MovieModel.fromDetails(detailsMovies!),
+                      ),
                     ],
                   ),
                   verticalSpace(10),

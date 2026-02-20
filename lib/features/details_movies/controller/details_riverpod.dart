@@ -20,7 +20,7 @@ class DetailsNotifier extends FamilyAsyncNotifier<DetailsData, DetailsParams> {
     _moviesId = arg.movieId;
     _language = arg.language;
     ref.keepAlive();
-    return  getDetailsMovies();
+    return getDetailsMovies();
   }
 
   Future<DetailsData> getDetailsMovies() async {
@@ -32,17 +32,16 @@ class DetailsNotifier extends FamilyAsyncNotifier<DetailsData, DetailsParams> {
       _repos.getSimilarMovies(language: _language, id: _moviesId),
     ]);
 
-    // String? errorMessage;
-    // for (final result in results) {
-    //   result.maybeWhen(
-    //     failure: (e) => errorMessage ??= e.message,
-    //     orElse: () {},
-    //   );
-    // }
-    // if (errorMessage != null) {
-    //   throw Exception(errorMessage);
-    // }
-
+    String? errorMessage;
+    for (final result in results) {
+      result.maybeWhen(
+        failure: (e) => errorMessage ??= e.message,
+        orElse: () {},
+      );
+    }
+    if (errorMessage != null) {
+      throw Exception(errorMessage);
+    }
 
     return DetailsData(
       details: (results[0] as ApiResult<DetailsMoviesResponse>).when(
@@ -70,6 +69,5 @@ class DetailsNotifier extends FamilyAsyncNotifier<DetailsData, DetailsParams> {
         failure: (e) => throw Exception(e.message),
       ),
     );
-
   }
 }
