@@ -45,21 +45,18 @@ class SettingsScreen extends StatelessWidget {
             verticalSpace(15.0),
             Consumer(
               builder: (context, ref, child) {
-                final settings = ref.watch(appSettingsProvider);
+                final isDark =
+                    Theme.of(context).brightness == Brightness.dark;
 
                 return CardWidget(
                   icon: Icons.dark_mode,
                   title: S.of(context).theme,
-
                   trailing: Switch(
-                    value: settings.themeMode == AppThemeMode.dark,
-
+                    value: isDark,
                     onChanged: (value) {
-                      ref
-                          .read(appSettingsProvider.notifier)
-                          .selectThemeMode(
-                            value ? AppThemeMode.dark : AppThemeMode.light,
-                          );
+                      ref.read(appSettingsProvider.notifier).selectThemeMode(
+                        value ? AppThemeMode.dark : AppThemeMode.light,
+                      );
                     },
                   ),
                 );
