@@ -59,7 +59,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                 return TextField(
                   controller: _searchController,
                   onChanged: (text) {
-                    ref.read(searchProvider('en').notifier).updateQuery(text);
+                    ref.read(searchProvider(lang.code).notifier).updateQuery(text);
                   },
                   decoration: InputDecoration(
                     hintText: S.of(context).searchMovies,
